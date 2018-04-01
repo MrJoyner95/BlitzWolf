@@ -1,0 +1,9 @@
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\bin\Debug\BlitzWolf.exe.config
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\bin\Debug\BlitzWolf.exe
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\bin\Debug\BlitzWolf.pdb
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.csprojResolveAssemblyReference.cache
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.Properties.Resources.resources
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.csproj.GenerateResource.Cache
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.csproj.CoreCompileInputs.cache
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.exe
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.pdb
