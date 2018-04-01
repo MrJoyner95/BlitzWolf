@@ -64,6 +64,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -77,6 +78,60 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-shutdown-26 N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-shutdown-26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rayo2_N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rayo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rayo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rayo_N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menuAbrir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inicio_N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inicio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menuCerrar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pre-procesamiento_N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pre-procesamiento.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\archivo_N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\archivo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimizar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimizar_N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimizar2_N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimizar2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
