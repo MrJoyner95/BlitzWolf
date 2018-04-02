@@ -8,3 +8,6 @@ C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\De
 C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.exe
 C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.pdb
 C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.Form1.resources
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.CustomControlInicio.resources
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.CustomControlArchivo.resources
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.CustomControlPreProcesamiento.resources

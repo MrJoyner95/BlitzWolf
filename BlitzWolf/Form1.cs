@@ -14,7 +14,7 @@ namespace BlitzWolf
     {
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Variables Globales ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         // Variables del menu lateral:
-        int menuLateralWidth;
+        int menuLateralMaxWidth;
         bool menuLateralAbierto;
 
 
@@ -23,8 +23,9 @@ namespace BlitzWolf
             InitializeComponent();
 
             // Inicializa variables del menu lateral:
-            menuLateralWidth = 340;
+            menuLateralMaxWidth = 260;
             menuLateralAbierto = false;
+
         }
 
 
@@ -117,7 +118,7 @@ namespace BlitzWolf
 
         private void button_Cerrar_MouseEnter(object sender, EventArgs e)
         {
-            this.button_Cerrar.Image = BlitzWolf.Properties.Resources.apagar_N;
+            this.button_Cerrar.Image = BlitzWolf.Properties.Resources.apagar_A;
         }
 
         private void button_Cerrar_MouseLeave(object sender, EventArgs e)
@@ -127,7 +128,7 @@ namespace BlitzWolf
 
         private void button_Minimizar_MouseEnter(object sender, EventArgs e)
         {
-            this.button_Minimizar.Image = BlitzWolf.Properties.Resources.minimizar2_N;
+            this.button_Minimizar.Image = BlitzWolf.Properties.Resources.minimizar_A;
         }
 
         private void button_Minimizar_MouseLeave(object sender, EventArgs e)
@@ -150,7 +151,7 @@ namespace BlitzWolf
             if (menuLateralAbierto == false) // Abre menu lateral
             {
                 MenuLateral.Width = MenuLateral.Width + 20;
-                if (MenuLateral.Width >= menuLateralWidth)
+                if (MenuLateral.Width >= menuLateralMaxWidth)
                 {
                     timerMenuLateral.Stop();
                     menuLateralAbierto = true;
@@ -187,7 +188,7 @@ namespace BlitzWolf
             // Mueve panel de seleccion:
             this.panel_Seleccion.Top = this.button_Inicio.Top;
             // Mueve CustomControl al frente:
-            //this.inicioCustomControl1.BringToFront();
+            this.customControlInicio1.BringToFront();
         }
 
         private void button_Archivo_Click(object sender, EventArgs e)
@@ -195,6 +196,7 @@ namespace BlitzWolf
             // Mueve panel de seleccion:
             this.panel_Seleccion.Top = this.button_Archivo.Top;
             // Mueve CustomControl al frente:
+            this.customControlArchivo1.BringToFront();
         }
 
         private void button_PreProcesamiento_Click(object sender, EventArgs e)
@@ -202,6 +204,7 @@ namespace BlitzWolf
             // Mueve panel de seleccion:
             this.panel_Seleccion.Top = this.button_PreProcesamiento.Top;
             // Mueve CustomControl al frente:
+            this.customControlPreProcesamiento1.BringToFront();
         }
 
 

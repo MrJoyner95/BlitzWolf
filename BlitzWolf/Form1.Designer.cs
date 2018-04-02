@@ -41,8 +41,14 @@
             this.button_Inicio = new System.Windows.Forms.Button();
             this.timerMenuLateral = new System.Windows.Forms.Timer(this.components);
             this.timerMinimizarVentana = new System.Windows.Forms.Timer(this.components);
+            this.panelPrincipal = new System.Windows.Forms.Panel();
+            this.customControlInicio1 = new BlitzWolf.CustomControlInicio();
+            this.customControlArchivo1 = new BlitzWolf.CustomControlArchivo();
+            this.customControlPreProcesamiento1 = new BlitzWolf.CustomControlPreProcesamiento();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panelBarraEstado.SuspendLayout();
             this.MenuLateral.SuspendLayout();
+            this.panelPrincipal.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelBarraEstado
@@ -65,7 +71,7 @@
             this.button_Minimizar.FlatAppearance.BorderSize = 0;
             this.button_Minimizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Minimizar.Image = global::BlitzWolf.Properties.Resources.minimizar2;
-            this.button_Minimizar.Location = new System.Drawing.Point(1004, 0);
+            this.button_Minimizar.Location = new System.Drawing.Point(1014, 0);
             this.button_Minimizar.Name = "button_Minimizar";
             this.button_Minimizar.Size = new System.Drawing.Size(40, 40);
             this.button_Minimizar.TabIndex = 1;
@@ -80,7 +86,7 @@
             this.button_Cerrar.FlatAppearance.BorderSize = 0;
             this.button_Cerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Cerrar.Image = global::BlitzWolf.Properties.Resources.apagar;
-            this.button_Cerrar.Location = new System.Drawing.Point(1050, 0);
+            this.button_Cerrar.Location = new System.Drawing.Point(1060, 0);
             this.button_Cerrar.Name = "button_Cerrar";
             this.button_Cerrar.Size = new System.Drawing.Size(40, 40);
             this.button_Cerrar.TabIndex = 0;
@@ -109,11 +115,12 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 20.25F);
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(100, 98);
+            this.label1.Location = new System.Drawing.Point(84, 106);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(223, 33);
+            this.label1.Size = new System.Drawing.Size(141, 66);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Icono y nombre";
+            this.label1.Text = "Icono\r\ny nombre";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel_Seleccion
             // 
@@ -146,13 +153,13 @@
             this.button_PreProcesamiento.Cursor = System.Windows.Forms.Cursors.Default;
             this.button_PreProcesamiento.FlatAppearance.BorderSize = 0;
             this.button_PreProcesamiento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_PreProcesamiento.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_PreProcesamiento.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_PreProcesamiento.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.button_PreProcesamiento.Image = global::BlitzWolf.Properties.Resources.pre_procesamiento;
             this.button_PreProcesamiento.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button_PreProcesamiento.Location = new System.Drawing.Point(15, 292);
             this.button_PreProcesamiento.Name = "button_PreProcesamiento";
-            this.button_PreProcesamiento.Size = new System.Drawing.Size(340, 40);
+            this.button_PreProcesamiento.Size = new System.Drawing.Size(260, 40);
             this.button_PreProcesamiento.TabIndex = 3;
             this.button_PreProcesamiento.Text = "  Pre-procesamiento";
             this.button_PreProcesamiento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -164,13 +171,13 @@
             this.button_Archivo.Cursor = System.Windows.Forms.Cursors.Default;
             this.button_Archivo.FlatAppearance.BorderSize = 0;
             this.button_Archivo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Archivo.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Archivo.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Archivo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.button_Archivo.Image = global::BlitzWolf.Properties.Resources.archivo;
             this.button_Archivo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button_Archivo.Location = new System.Drawing.Point(15, 246);
             this.button_Archivo.Name = "button_Archivo";
-            this.button_Archivo.Size = new System.Drawing.Size(340, 40);
+            this.button_Archivo.Size = new System.Drawing.Size(260, 40);
             this.button_Archivo.TabIndex = 2;
             this.button_Archivo.Text = "  Archivo";
             this.button_Archivo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -182,13 +189,13 @@
             this.button_Inicio.Cursor = System.Windows.Forms.Cursors.Default;
             this.button_Inicio.FlatAppearance.BorderSize = 0;
             this.button_Inicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Inicio.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Inicio.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Inicio.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.button_Inicio.Image = global::BlitzWolf.Properties.Resources.inicio;
             this.button_Inicio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button_Inicio.Location = new System.Drawing.Point(15, 200);
             this.button_Inicio.Name = "button_Inicio";
-            this.button_Inicio.Size = new System.Drawing.Size(340, 40);
+            this.button_Inicio.Size = new System.Drawing.Size(260, 40);
             this.button_Inicio.TabIndex = 1;
             this.button_Inicio.Text = "  Inicio";
             this.button_Inicio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -205,21 +212,68 @@
             this.timerMinimizarVentana.Interval = 10;
             this.timerMinimizarVentana.Tick += new System.EventHandler(this.timerMinimizarVentana_Tick);
             // 
+            // panelPrincipal
+            // 
+            this.panelPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelPrincipal.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelPrincipal.Controls.Add(this.customControlInicio1);
+            this.panelPrincipal.Controls.Add(this.customControlArchivo1);
+            this.panelPrincipal.Controls.Add(this.customControlPreProcesamiento1);
+            this.panelPrincipal.Location = new System.Drawing.Point(60, 40);
+            this.panelPrincipal.Name = "panelPrincipal";
+            this.panelPrincipal.Size = new System.Drawing.Size(1040, 660);
+            this.panelPrincipal.TabIndex = 2;
+            // 
+            // customControlInicio1
+            // 
+            this.customControlInicio1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.customControlInicio1.Location = new System.Drawing.Point(0, 0);
+            this.customControlInicio1.Name = "customControlInicio1";
+            this.customControlInicio1.Size = new System.Drawing.Size(1040, 660);
+            this.customControlInicio1.TabIndex = 0;
+            // 
+            // customControlArchivo1
+            // 
+            this.customControlArchivo1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.customControlArchivo1.Location = new System.Drawing.Point(0, 0);
+            this.customControlArchivo1.Name = "customControlArchivo1";
+            this.customControlArchivo1.Size = new System.Drawing.Size(1040, 660);
+            this.customControlArchivo1.TabIndex = 1;
+            // 
+            // customControlPreProcesamiento1
+            // 
+            this.customControlPreProcesamiento1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.customControlPreProcesamiento1.Location = new System.Drawing.Point(0, 0);
+            this.customControlPreProcesamiento1.Name = "customControlPreProcesamiento1";
+            this.customControlPreProcesamiento1.Size = new System.Drawing.Size(1040, 660);
+            this.customControlPreProcesamiento1.TabIndex = 2;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(153)))), ((int)(((byte)(0)))));
             this.ClientSize = new System.Drawing.Size(1100, 700);
             this.ControlBox = false;
             this.Controls.Add(this.MenuLateral);
+            this.Controls.Add(this.panelPrincipal);
             this.Controls.Add(this.panelBarraEstado);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Blitz Wolf";
             this.panelBarraEstado.ResumeLayout(false);
             this.MenuLateral.ResumeLayout(false);
             this.MenuLateral.PerformLayout();
+            this.panelPrincipal.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -238,6 +292,11 @@
         private System.Windows.Forms.Button button_Minimizar;
         private System.Windows.Forms.Button button_Cerrar;
         private System.Windows.Forms.Timer timerMinimizarVentana;
+        private System.Windows.Forms.Panel panelPrincipal;
+        private CustomControlInicio customControlInicio1;
+        private CustomControlArchivo customControlArchivo1;
+        private CustomControlPreProcesamiento customControlPreProcesamiento1;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
 

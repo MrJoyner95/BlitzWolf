@@ -73,6 +73,16 @@ namespace BlitzWolf.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap apagar_A {
+            get {
+                object obj = ResourceManager.GetObject("apagar_A", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap apagar_N {
             get {
                 object obj = ResourceManager.GetObject("apagar_N", resourceCulture);
@@ -146,6 +156,16 @@ namespace BlitzWolf.Properties {
         internal static System.Drawing.Bitmap minimizar {
             get {
                 object obj = ResourceManager.GetObject("minimizar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap minimizar_A {
+            get {
+                object obj = ResourceManager.GetObject("minimizar_A", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
