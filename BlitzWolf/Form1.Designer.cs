@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panelBarraEstado = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button_Minimizar = new System.Windows.Forms.Button();
             this.button_Cerrar = new System.Windows.Forms.Button();
             this.MenuLateral = new System.Windows.Forms.Panel();
@@ -47,18 +48,17 @@
             this.customControlInicio1 = new BlitzWolf.CustomControlInicio();
             this.customControlArchivo1 = new BlitzWolf.CustomControlArchivo();
             this.customControlPreProcesamiento1 = new BlitzWolf.CustomControlPreProcesamiento();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panelBarraEstado.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.MenuLateral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelPrincipal.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // panelBarraEstado
             // 
             this.panelBarraEstado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.panelBarraEstado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelBarraEstado.Controls.Add(this.pictureBox2);
             this.panelBarraEstado.Controls.Add(this.button_Minimizar);
             this.panelBarraEstado.Controls.Add(this.button_Cerrar);
@@ -70,6 +70,16 @@
             this.panelBarraEstado.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelBarraEstado_MouseDown);
             this.panelBarraEstado.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelBarraEstado_MouseMove);
             this.panelBarraEstado.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelBarraEstado_MouseUp);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::BlitzWolf.Properties.Resources.logo4;
+            this.pictureBox2.Location = new System.Drawing.Point(10, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(40, 40);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 2;
+            this.pictureBox2.TabStop = false;
             // 
             // button_Minimizar
             // 
@@ -266,22 +276,6 @@
             this.customControlPreProcesamiento1.Size = new System.Drawing.Size(1040, 660);
             this.customControlPreProcesamiento1.TabIndex = 2;
             // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::BlitzWolf.Properties.Resources.logo4;
-            this.pictureBox2.Location = new System.Drawing.Point(10, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(40, 40);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 2;
-            this.pictureBox2.TabStop = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -298,11 +292,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Blitz Wolf";
             this.panelBarraEstado.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.MenuLateral.ResumeLayout(false);
             this.MenuLateral.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelPrincipal.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -324,7 +318,6 @@
         private CustomControlInicio customControlInicio1;
         private CustomControlArchivo customControlArchivo1;
         private CustomControlPreProcesamiento customControlPreProcesamiento1;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox2;
