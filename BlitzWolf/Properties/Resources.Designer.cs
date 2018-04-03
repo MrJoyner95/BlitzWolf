@@ -113,6 +113,26 @@ namespace BlitzWolf.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bivariable {
+            get {
+                object obj = ResourceManager.GetObject("bivariable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bivariable_A {
+            get {
+                object obj = ResourceManager.GetObject("bivariable_A", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap inicio {
             get {
                 object obj = ResourceManager.GetObject("inicio", resourceCulture);
@@ -296,6 +316,26 @@ namespace BlitzWolf.Properties {
         internal static System.Drawing.Bitmap rayo2_N {
             get {
                 object obj = ResourceManager.GetObject("rayo2_N", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap univariable {
+            get {
+                object obj = ResourceManager.GetObject("univariable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap univariable_A {
+            get {
+                object obj = ResourceManager.GetObject("univariable_A", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

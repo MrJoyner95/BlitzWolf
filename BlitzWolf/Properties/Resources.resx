@@ -133,6 +133,12 @@
   <data name="archivo_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\archivo_N.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="bivariable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bivariable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bivariable_A" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bivariable_A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="inicio" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\inicio.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -189,5 +195,11 @@
   </data>
   <data name="rayo_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rayo_N.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="univariable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\univariable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="univariable_A" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\univariable_A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

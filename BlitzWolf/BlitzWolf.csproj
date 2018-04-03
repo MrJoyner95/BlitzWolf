@@ -178,5 +178,17 @@
   <ItemGroup>
     <None Include="Resources\apagar_A.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\univariable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\univariable_A.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bivariable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bivariable_A.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
