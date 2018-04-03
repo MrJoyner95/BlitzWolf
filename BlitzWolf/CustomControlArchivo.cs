@@ -16,5 +16,10 @@ namespace BlitzWolf
         {
             InitializeComponent();
         }
+
+        private void CustomControlArchivo_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

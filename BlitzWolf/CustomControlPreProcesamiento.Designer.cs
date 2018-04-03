@@ -51,7 +51,7 @@
             // 
             this.panel_AnalisisUnivariable.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel_AnalisisUnivariable.Controls.Add(this.panel2);
-            this.panel_AnalisisUnivariable.Location = new System.Drawing.Point(0, 40);
+            this.panel_AnalisisUnivariable.Location = new System.Drawing.Point(12, 113);
             this.panel_AnalisisUnivariable.Name = "panel_AnalisisUnivariable";
             this.panel_AnalisisUnivariable.Size = new System.Drawing.Size(1040, 620);
             this.panel_AnalisisUnivariable.TabIndex = 31;

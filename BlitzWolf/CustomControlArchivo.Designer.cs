@@ -101,6 +101,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CustomControlArchivo";
             this.Size = new System.Drawing.Size(1040, 660);
+            this.Load += new System.EventHandler(this.CustomControlArchivo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);

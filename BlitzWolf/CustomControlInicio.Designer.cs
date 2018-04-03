@@ -28,26 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
+            this.menuStripInicio = new System.Windows.Forms.MenuStrip();
+            this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.guardarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cerrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.menuStripInicio.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(494, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 33);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Inicio";
             // 
             // dataGridView1
             // 
@@ -100,6 +96,64 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Detalles";
             // 
+            // menuStripInicio
+            // 
+            this.menuStripInicio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.menuStripInicio.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuStripInicio.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.archivoToolStripMenuItem});
+            this.menuStripInicio.Location = new System.Drawing.Point(0, 0);
+            this.menuStripInicio.Name = "menuStripInicio";
+            this.menuStripInicio.Size = new System.Drawing.Size(1040, 25);
+            this.menuStripInicio.TabIndex = 4;
+            this.menuStripInicio.Text = "menuStrip1";
+            // 
+            // archivoToolStripMenuItem
+            // 
+            this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.abrirToolStripMenuItem,
+            this.guardarToolStripMenuItem,
+            this.guardarComoToolStripMenuItem,
+            this.cerrarToolStripMenuItem});
+            this.archivoToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.archivoToolStripMenuItem.Image = global::BlitzWolf.Properties.Resources.archivo;
+            this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
+            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(85, 21);
+            this.archivoToolStripMenuItem.Text = "Archivo";
+            // 
+            // abrirToolStripMenuItem
+            // 
+            this.abrirToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.abrirToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.abrirToolStripMenuItem.Text = "Abrir";
+            this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
+            // 
+            // guardarToolStripMenuItem
+            // 
+            this.guardarToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.guardarToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.guardarToolStripMenuItem.Text = "Guardar";
+            // 
+            // guardarComoToolStripMenuItem
+            // 
+            this.guardarComoToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.guardarComoToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
+            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.guardarComoToolStripMenuItem.Text = "Guardar como...";
+            // 
+            // cerrarToolStripMenuItem
+            // 
+            this.cerrarToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.cerrarToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.cerrarToolStripMenuItem.Name = "cerrarToolStripMenuItem";
+            this.cerrarToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.cerrarToolStripMenuItem.Text = "Cerrar";
+            // 
             // CustomControlInicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -108,26 +162,33 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.menuStripInicio);
             this.Name = "CustomControlInicio";
             this.Size = new System.Drawing.Size(1040, 660);
+            this.Load += new System.EventHandler(this.CustomControlInicio_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.menuStripInicio.ResumeLayout(false);
+            this.menuStripInicio.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.MenuStrip menuStripInicio;
+        private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem abrirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem guardarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem guardarComoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cerrarToolStripMenuItem;
     }
 }
