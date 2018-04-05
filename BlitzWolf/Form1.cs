@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Text.RegularExpressions;
+
 
 namespace BlitzWolf
 {
@@ -16,6 +19,27 @@ namespace BlitzWolf
         // Variables del menu lateral:
         int menuLateralMaxWidth;
         bool menuLateralAbierto;
+
+        // Variables del conjunto de datos:
+        public string DataSet_File = "";
+        public string DataSet_Name = "";
+        public string DataSet_MissingValue = "?";
+        public int DataSet_NumberOfAttributes = 0;
+        public struct Atribute
+        {
+            public string name;
+            public string type;
+            public Regex regularExpression;
+
+            public Atribute(string name, string type, Regex regularExpression)
+            {
+                this.name = name;
+                this.type = type;
+                this.regularExpression = regularExpression;
+            }
+        }
+        List<Atribute> DataSet_Attributes = new List<Atribute>();
+
 
 
         public Form1()
@@ -210,6 +234,163 @@ namespace BlitzWolf
 
 
 
-        
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Funciones Globales ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        private void AbrirArchivo()
+        {
+            // Crea OpenFileDialog:
+            OpenFileDialog openFile = new OpenFileDialog();
+            // Modifica openFile:
+            openFile.Title = "Seleccione el conjunto de datos";
+            // Especifica tipos de archivos validos:
+            openFile.Filter = "Archivos de texto|*.txt|Archivos CSV|*.csv";
+
+            // Ubica archivo y comprueba que se haya abierto:
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                DataSet_File = openFile.FileName;
+                Console.WriteLine("Archivo abierto: " + DataSet_File);
+
+                /*
+                // Comrueba formato del archivo:
+                if (ValidarArchivo(DataSet_File) == false) // Formato no valido
+                {
+                    return;
+                }
+                */
+
+                bool validado = ValidarArchivo(DataSet_File);
+
+                if (validado == true)
+                {
+                    Console.WriteLine("Archivo VALIDO");
+                }
+                else
+                {
+                    Console.WriteLine("Archivo NO valido");
+                }
+
+            }
+        }
+
+
+        public bool ValidarArchivo(string archivo)
+        {
+            // Reinicia variables globales:
+            DataSet_MissingValue = "?";
+            DataSet_NumberOfAttributes = 0;
+            DataSet_Attributes.Clear();
+
+            // Variable para comprobar que el archivo contenga todos los datos necesarios:
+            bool[] checkListDatos = new bool[3];
+
+            
+            // Valida formato del archivo:
+            using (var lector = new StreamReader(archivo))
+            {
+                while (!lector.EndOfStream)
+                {
+                    var linea = lector.ReadLine();
+
+                    // Valida que no sea una linea vacia:
+                    if (linea.Length > 0)
+                    {
+                        // Ubica datos del DataSet:
+                        if (linea[0] == '@')
+                        {
+                            string[] dato = linea.Split(' ');
+
+                            // Valida y asigna datos del DataSet:
+                            if (dato[0] == "@relation")
+                            {
+                                try
+                                {
+                                    DataSet_Name = dato[1];
+                                    // Confirma validez en check list:
+                                    checkListDatos[0] = true;
+                                }
+                                catch
+                                {
+                                    MessageBox.Show("No se ha encontrado el nombre del conjunto de datos. Por favor, revise el archivo e inténte abrirlo de nuevo.", "Error: El nombre de la relación no existe.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    // Validacion no concretada:
+                                    return false;
+                                }
+                            }
+                            else if (dato[0] == "@attribute")
+                            {
+                                try
+                                {
+                                    // Valida expresion regular del atributo y agrega atributo  a la lista:
+                                    Regex expresionRegular = new Regex(dato[3]);
+                                    DataSet_Attributes.Add(new Atribute(dato[1], dato[2], expresionRegular));
+                                    DataSet_NumberOfAttributes++;
+                                    checkListDatos[1] = true;
+                                }
+                                catch
+                                {
+                                    // La espresion regular no es valida:
+                                    MessageBox.Show("Por favor, revise que la expresión regular tenga el formato correcto en el siguiente atributo: \n" + dato[1], "Error: Expresión regular no válida.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return false;
+                                }
+                            }
+                            else if (dato[0] == "@missingValue")
+                            {
+                                try
+                                {
+                                    DataSet_MissingValue = dato[1];
+                                }
+                                catch
+                                {
+                                    MessageBox.Show("Se ha encontrado el dato @missingValue, sin embargo este no tiene un valor. Por favor, agregue un valor al dato o elimínelo del archivo.", "Error: Valor faltante no encontrado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return false;
+                                }
+                            }
+                            else if (dato[0] == "@data")
+                            {
+                                checkListDatos[2] = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            
+            // Comprueba que todas las validaciones se hayan completado con exito:            
+            foreach (bool valor in checkListDatos)
+            {
+                if(valor == false)
+                {
+                    MessageBox.Show("No se han econtrado todos los valores necesarios del conjunto de datos en el archivo. Por favor, verifique que el archivo cuente con los siguientes valores: \n @relation \n @attribute \n @data", "Error: Formato incorrecto.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+
+            // Todos los valores han sido validados:
+            return true;
+        }
+
+
+
+
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AbrirArchivo();
+
+            // Muestra datos del conjunto de datos:
+            Console.WriteLine("\n******** DATOS DEL DATASET ********\n");
+            Console.WriteLine("DataSet_File =               " + DataSet_File);
+            Console.WriteLine("DataSet_Name =               " + DataSet_Name);
+            Console.WriteLine("DataSet_MissingValue =       " + DataSet_MissingValue);
+            Console.WriteLine("DataSet_NumberOfAttributes = " + DataSet_NumberOfAttributes);
+            Console.WriteLine("DataSet_Attributes:");
+            foreach(BlitzWolf.Form1.Atribute atributo in DataSet_Attributes)
+            {
+                Console.WriteLine("\tAtributo: " + atributo.name + ", Tipo: " + atributo.type + ", Expresion regular: " + atributo.regularExpression);
+            }
+
+        }
     }
 }
