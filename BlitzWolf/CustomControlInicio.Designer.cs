@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView_Instancias = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -39,20 +39,20 @@
             this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.guardarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Instancias)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.menuStripInicio.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dataGridView_Instancias
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(20, 100);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(750, 540);
-            this.dataGridView1.TabIndex = 1;
+            this.dataGridView_Instancias.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dataGridView_Instancias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Instancias.Location = new System.Drawing.Point(20, 100);
+            this.dataGridView_Instancias.Name = "dataGridView_Instancias";
+            this.dataGridView_Instancias.Size = new System.Drawing.Size(750, 540);
+            this.dataGridView_Instancias.TabIndex = 1;
             // 
             // panel1
             // 
@@ -161,12 +161,12 @@
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridView_Instancias);
             this.Controls.Add(this.menuStripInicio);
             this.Name = "CustomControlInicio";
             this.Size = new System.Drawing.Size(1040, 660);
             this.Load += new System.EventHandler(this.CustomControlInicio_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Instancias)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -179,7 +179,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView_Instancias;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;

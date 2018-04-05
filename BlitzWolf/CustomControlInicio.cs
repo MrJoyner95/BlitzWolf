@@ -36,6 +36,8 @@ namespace BlitzWolf
         {
             Global.AbrirArchivo();
             Global.MostrarDetalles();
+
+            CargarInstanciasEnGrid();
         }
 
 
@@ -44,38 +46,30 @@ namespace BlitzWolf
 
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Funciones ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-        private void AbrirArchivo()
+        private void CargarInstanciasEnGrid()
         {
-            // Crea OpenFileDialog:
-            OpenFileDialog openFile = new OpenFileDialog();
-            // Modifica openFile:
-            openFile.Title = "Seleccione el conjunto de datos";
-            // Especifica tipos de archivos validos:
-            openFile.Filter = "Archivos de texto|*.txt|Archivos CSV|*.csv";            
-            
-            // Ubica archivo y comprueba que se haya abierto:
-            if(openFile.ShowDialog() == DialogResult.OK)
+            // Reinicia el Grid:
+            dataGridView_Instancias.Columns.Clear();
+            dataGridView_Instancias.Rows.Clear();
+
+            // Agrega columnas al Grid:
+            foreach(Global.Attribute atributo in Global.DataSet_Attributes)
             {
-                archivoAbierto = openFile.FileName;
-                Console.WriteLine(archivoAbierto);
-
-                // Comrueba formato del archivo:
-                if(ValidarFormatoArchivo(archivoAbierto) == false) // Formato no valido
-                {
-                    return;
-                }
-                Console.WriteLine(archivoAbierto);
+                // Parametros: (name, header)
+                dataGridView_Instancias.Columns.Add(atributo.name, atributo.name);
             }
-            
-        }
 
+            // Agrega instancias al Grid:
+            foreach(string[] instancia in Global.DataSet_Data)
+            {
+                dataGridView_Instancias.Rows.Add(instancia);
+            }
 
-        private bool ValidarFormatoArchivo(string rutaArchivo)
-        {
-            // formato valido
-            return true;
-            // formato invalido
-            //return false;
+            // Marca atributos que no cumplen con su expresion regular:
+            foreach (int[] posicionAtributo in Global.listaAtributosErroneos)
+            {
+                dataGridView_Instancias.Rows[posicionAtributo[0]].Cells[posicionAtributo[1]].Style.BackColor = Color.Red;
+            }
         }
 
 
