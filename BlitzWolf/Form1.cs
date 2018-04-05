@@ -25,6 +25,8 @@ namespace BlitzWolf
         public string DataSet_Name = "";
         public string DataSet_MissingValue = "?";
         public int DataSet_NumberOfAttributes = 0;
+        public int DataSet_NumberOfInstances = 0;
+        public List<string[]> DataSet_Data = new List<string[]>();
         public struct Atribute
         {
             public string name;
@@ -38,7 +40,9 @@ namespace BlitzWolf
                 this.regularExpression = regularExpression;
             }
         }
-        List<Atribute> DataSet_Attributes = new List<Atribute>();
+        public List<Atribute> DataSet_Attributes = new List<Atribute>();
+
+        public List<int[]> listaAtributosErroneos = new List<int[]>();
 
 
 
@@ -237,7 +241,7 @@ namespace BlitzWolf
 
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Funciones Globales ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-        private void AbrirArchivo()
+        public void AbrirArchivo()
         {
             // Crea OpenFileDialog:
             OpenFileDialog openFile = new OpenFileDialog();
@@ -252,25 +256,17 @@ namespace BlitzWolf
                 DataSet_File = openFile.FileName;
                 Console.WriteLine("Archivo abierto: " + DataSet_File);
 
-                /*
-                // Comrueba formato del archivo:
-                if (ValidarArchivo(DataSet_File) == false) // Formato no valido
-                {
-                    return;
-                }
-                */
-
+         
                 bool validado = ValidarArchivo(DataSet_File);
-
                 if (validado == true)
                 {
                     Console.WriteLine("Archivo VALIDO");
+                    CargarArchivo(DataSet_File);
                 }
                 else
                 {
                     Console.WriteLine("Archivo NO valido");
                 }
-
             }
         }
 
@@ -281,6 +277,8 @@ namespace BlitzWolf
             DataSet_MissingValue = "?";
             DataSet_NumberOfAttributes = 0;
             DataSet_Attributes.Clear();
+
+            // Variables locales:
 
             // Variable para comprobar que el archivo contenga todos los datos necesarios:
             bool[] checkListDatos = new bool[3];
@@ -322,7 +320,7 @@ namespace BlitzWolf
                                 try
                                 {
                                     // Valida expresion regular del atributo y agrega atributo  a la lista:
-                                    Regex expresionRegular = new Regex(dato[3]);
+                                    Regex expresionRegular = new Regex(@dato[3]);
                                     DataSet_Attributes.Add(new Atribute(dato[1], dato[2], expresionRegular));
                                     DataSet_NumberOfAttributes++;
                                     checkListDatos[1] = true;
@@ -371,6 +369,75 @@ namespace BlitzWolf
         }
 
 
+        public void CargarArchivo(string archivo)
+        {
+            // Reinicia variables globales:
+            DataSet_Data.Clear();
+            listaAtributosErroneos.Clear();
+
+            // Variable para saber cuando se encontro la etiqueta @data:
+            bool dataEncontrada = false;
+            int lineaActual = 0;
+            int numeroInstancia = 0;
+
+            using (var lector = new StreamReader(archivo))
+            {
+                while (!lector.EndOfStream)
+                {
+                    var linea = lector.ReadLine();
+
+                    // Valida que no sea una linea vacia y que se haya encontrado la etiqueta data:
+                    if (linea.Length > 0 && dataEncontrada == true)
+                    {
+                        string[] instancia = linea.Split(',');
+
+                        // Comprueba que la instancia tenga el numero correcto de atributos:
+                        if(instancia.Length >= DataSet_NumberOfAttributes)
+                        {
+                            // Valida cada atributo de la instancia:
+                            for(int x = 0; x < DataSet_NumberOfAttributes; x++)
+                            {
+                                // Reemplaza valores nulos en la instancia:
+                                if (instancia[x] == "" || instancia[x] == " ")
+                                {
+                                    instancia[x] = DataSet_MissingValue;
+                                }
+                                else
+                                {
+                                    // Comprueba que el atributo cumpla con la expresion regular:
+                                    if ( !DataSet_Attributes[x].regularExpression.Match(instancia[x]).Success )
+                                    {
+                                        // Agrega la posicion de la instancia y el atributo a la lista porque no cumple con la expresion regular:
+                                        listaAtributosErroneos.Add(new int[]{ numeroInstancia, x });
+                                    }
+                                }
+                            }
+                            
+                            // Agrega instancia a lista:
+                            DataSet_Data.Add(instancia);
+                        }
+                        else
+                        {
+                            // La instancia no tiene el numero de atributos correcto:
+                            DataSet_Data.Clear();
+                            MessageBox.Show("Se han encontrado instancias que no cuentan con el número de atributos especificados. Por favor, abra el archivo y compruebe que la instancia de la siguiente línea: \n" + lineaActual, "Error: Instancias no válidas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        }
+
+                        // Aumenta numero de instancia:
+                        numeroInstancia++;
+                    }
+                    else if(linea == "@data")
+                    {
+                        // Se ha encontrado la etiqueta:
+                        dataEncontrada = true;                        
+                    }
+
+                    // Mantiene control de lineas leidas:
+                    lineaActual++;
+                }
+            }
+        }
 
 
 
@@ -389,6 +456,25 @@ namespace BlitzWolf
             foreach(BlitzWolf.Form1.Atribute atributo in DataSet_Attributes)
             {
                 Console.WriteLine("\tAtributo: " + atributo.name + ", Tipo: " + atributo.type + ", Expresion regular: " + atributo.regularExpression);
+            }
+
+            // Muestra instancias:
+            Console.WriteLine("\n******** INSTANCIAS DEL DATASET ********\n");
+            Console.WriteLine("DataSet_Data:");
+            foreach (string[] instancia in DataSet_Data)
+            {
+                for(int x = 0; x < DataSet_NumberOfAttributes; x++)
+                {
+                    Console.Write(instancia[x] + "|");
+                }
+                Console.WriteLine();
+            }
+
+            // Muestra posiciones de atributos erroneos:
+            Console.WriteLine("\n******** ATRIBUTOS ERRONEOS ********\n");
+            foreach (int[] posicionAtributo in listaAtributosErroneos)
+            {
+                Console.WriteLine(posicionAtributo[0] + "," + posicionAtributo[1]);
             }
 
         }

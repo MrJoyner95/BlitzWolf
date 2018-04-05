@@ -16,7 +16,6 @@ namespace BlitzWolf
         string archivoAbierto = "";
         
         
-        
         public CustomControlInicio()
         {
             InitializeComponent();
@@ -35,7 +34,7 @@ namespace BlitzWolf
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirArchivo();
+
         }
 
 
