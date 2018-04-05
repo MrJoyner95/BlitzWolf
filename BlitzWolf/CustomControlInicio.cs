@@ -14,8 +14,8 @@ namespace BlitzWolf
     {
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Variables Globales ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         string archivoAbierto = "";
-        
-        
+
+
         public CustomControlInicio()
         {
             InitializeComponent();
@@ -34,7 +34,8 @@ namespace BlitzWolf
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Global.AbrirArchivo();
+            Global.MostrarDetalles();
         }
 
 
@@ -76,6 +77,11 @@ namespace BlitzWolf
             // formato invalido
             //return false;
         }
+
+
+
+
+
 
 
 
