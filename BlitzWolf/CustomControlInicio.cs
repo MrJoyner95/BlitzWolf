@@ -32,13 +32,119 @@ namespace BlitzWolf
 
         }
 
+        // ++++++++++++++++++++++++++++++++++++++++ Menustrip ++++++++++++++++++++++++++++++++++++++++
+
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Global.AbrirArchivo();
             Global.MostrarDetalles();
-
             CargarInstanciasEnGrid();
         }
+
+        private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Global.GuardarArchivo(Global.DataSet_File);
+        }
+
+        private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Global.GuardarArchivoComo();
+        }
+
+        // ++++++++++++++++++++++++++++++++++++++++ DataGrid ++++++++++++++++++++++++++++++++++++++++
+
+        private void dataGridView_Instancias_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            
+
+            // Ubica la posicion de la celda modificada:
+            int posicionX = dataGridView_Instancias.CurrentCell.RowIndex;
+            int posicionY = dataGridView_Instancias.CurrentCell.ColumnIndex;
+
+            Console.WriteLine("posicionX = " + posicionX);
+            Console.WriteLine("posicionY = " + posicionY);
+
+            // Intenta guardar cambios en memoria:
+            try
+            {
+                // Modifica valor en la misma posicion en el DataSet_Data:
+                Global.DataSet_Data[posicionX][posicionY] = dataGridView_Instancias.CurrentCell.Value.ToString();
+
+                // Especififca que se ha modificado:
+                Global.ArchivoModificado = true;
+            }
+            catch
+            {                               
+                Console.WriteLine("Error al guardar cambios en instancia...");
+            }
+            
+            
+            // Valida expresion regular del atributo con el nuevo valor:
+            if (Global.DataSet_Attributes[posicionY].regularExpression.Match(Global.DataSet_Data[posicionX][posicionY]).Success)
+            {
+                // ++++++++++++++++ Valor nuevo cumple con la expresion regular: ++++++++++++++++
+                // Define color de la celda:
+                dataGridView_Instancias.CurrentCell.Style.BackColor = Color.FromName("WindowFrame");
+                
+                // Busca instancia de lista erroneos:
+                int posicionAtributoErroneo = 0;
+                bool atributoErroneoEnLista = false;
+
+                foreach(int[] atributoErroneo in Global.listaAtributosErroneos)
+                {
+                    if(atributoErroneo[0] == posicionX && atributoErroneo[1] == posicionY)
+                    {
+                        atributoErroneoEnLista = true;
+                        break;
+                    }
+                    posicionAtributoErroneo++;
+                }
+
+                // Si el atributo se encuentra en la lista de erroneos lo elimina:
+                if(atributoErroneoEnLista == true)
+                {
+                    Global.listaAtributosErroneos.RemoveAt(posicionAtributoErroneo);
+                }
+                
+                /*
+                // Comprobacion
+                Console.WriteLine("\n******** ATRIBUTOS ERRONEOS ********\n");
+                foreach (int[] posicionAtributo in Global.listaAtributosErroneos)
+                {
+                    Console.WriteLine(posicionAtributo[0] + "," + posicionAtributo[1]);
+                }
+                */
+            }
+            else
+            {
+                // ++++++++++++++++ Valor nuevo NO cumple con la expresion regular: ++++++++++++++++
+                // Define color de la celda:
+                dataGridView_Instancias.CurrentCell.Style.BackColor = Color.Red;
+
+                // Busca instancia de lista erroneos:
+                int posicionAtributoErroneo = 0;
+                bool atributoErroneoEnLista = false;
+
+                foreach (int[] atributoErroneo in Global.listaAtributosErroneos)
+                {
+                    if (atributoErroneo[0] == posicionX && atributoErroneo[1] == posicionY)
+                    {
+                        atributoErroneoEnLista = true;
+                        break;
+                    }
+                    posicionAtributoErroneo++;
+                }
+
+                // Si el atributo NO se encuentra en la lista de erroneos, lo agrega:
+                if (atributoErroneoEnLista == false)
+                {
+                    int[] nuevoAtributo = new int[] { posicionX, posicionY };
+                    Global.listaAtributosErroneos.Add(nuevoAtributo);
+                }                
+            }                
+        }
+
+
 
 
 
@@ -48,6 +154,10 @@ namespace BlitzWolf
 
         private void CargarInstanciasEnGrid()
         {
+            // Define estilo del Grid:
+            dataGridView_Instancias.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(55, 55, 55);
+            dataGridView_Instancias.RowHeadersVisible = false;
+
             // Reinicia el Grid:
             dataGridView_Instancias.Columns.Clear();
             dataGridView_Instancias.Rows.Clear();
@@ -81,13 +191,6 @@ namespace BlitzWolf
             }
         }
 
-
-
-
-
-
-
-
-
+        
     }
 }

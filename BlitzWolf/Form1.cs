@@ -109,7 +109,38 @@ namespace BlitzWolf
         // ++++++++++++++++++++++++++++++++++++++++ Manejar ventana ++++++++++++++++++++++++++++++++++++++++
         private void button_Cerrar_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            // Comprueba si el archivo ha sido modificado:
+            if(Global.ArchivoModificado == true)
+            {
+                DialogResult messageBoxResult = MessageBox.Show("¿Desea guardar los cambios antes de cerrar el archivo?", "Archivo modificado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+
+                // Maneja respuesta:
+                if(messageBoxResult == DialogResult.Yes)
+                {
+                    try
+                    {
+                        Global.GuardarArchivo(Global.DataSet_File);
+                        Application.Exit();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("ERROR AL GUARDAR ARCHIVO");
+                        return;
+                    }                   
+                }
+                else if(messageBoxResult == DialogResult.No)
+                {
+                    Application.Exit();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                Application.Exit();
+            }            
         }
 
         private void button_Minimizar_Click(object sender, EventArgs e)

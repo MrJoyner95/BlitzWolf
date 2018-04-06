@@ -35,7 +35,10 @@ namespace BlitzWolf
         }
         static public List<Attribute> DataSet_Attributes = new List<Attribute>();
 
+        // Variables del archivo:
+        static public List<string> DatosComplementoArchivo = new List<string>();
         static public List<int[]> listaAtributosErroneos = new List<int[]>();
+        static public bool ArchivoModificado = false;
 
 
 
@@ -174,6 +177,8 @@ namespace BlitzWolf
         static public void CargarArchivo(string archivo)
         {
             // Reinicia variables globales:
+            DatosComplementoArchivo.Clear();
+            ArchivoModificado = false;
             DataSet_Data.Clear();
             listaAtributosErroneos.Clear();
 
@@ -234,6 +239,11 @@ namespace BlitzWolf
                         // Se ha encontrado la etiqueta:
                         dataEncontrada = true;
                     }
+                    else if (dataEncontrada == false)
+                    {
+                        // Agrega datos complementarios del archivo (todo lo que se encuentra antes de la data exactamente igual):
+                        DatosComplementoArchivo.Add(linea);
+                    }
 
                     // Mantiene control de lineas leidas:
                     lineaActual++;
@@ -241,6 +251,76 @@ namespace BlitzWolf
             }
         }
 
+
+        static public void GuardarArchivo(string archivo)
+        {
+            // Escribe todos los datos complementarios e instancias del conjunto de datos en la ruta especificada:
+            try
+            {
+                File.WriteAllText(archivo, DatosComplementoArchivo.ToString() + DataSet_Data.ToString());
+
+                // Escribe en el archivo (parametro false es "append = false" para que el archivo se sobreescriba), se guarda en un archivo temporal:
+                using (StreamWriter escritor = new StreamWriter(archivo + "_TEMPORAL", false))
+                {
+                    // Escribe datos complementarios del archivo:
+                    foreach(string linea in DatosComplementoArchivo)
+                    {
+                        escritor.WriteLine(linea);
+                    }
+
+                    // Escribe instancias del DataSet:
+                    escritor.WriteLine("@data");
+                    foreach(string[] instancia in DataSet_Data)
+                    {
+                        for(int x = 0; x < DataSet_Attributes.Count; x++)
+                        {
+                            if(x == DataSet_Attributes.Count - 1)
+                            {
+                                // Es el ultimo atributo de la instancia, no se escribe coma al final y se da un salto de linea:
+                                escritor.Write(instancia[x]);
+                                escritor.WriteLine();
+                            }
+                            else
+                            {
+                                // Se agrega una coma como separador:
+                                escritor.Write(instancia[x] + ",");
+                            }
+                        }
+                    }
+                }
+
+                // Cambios guardados, el archivo no tiene modificaciones por guardar:
+                ArchivoModificado = false;
+            }
+            catch
+            {
+                MessageBox.Show("Por favor, verifique que la ruta específicada sea válida y que cuente con los permisos para guardar en la misma.", "Error: No se ha podido guardar el archivo.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+            // Si todo se escribió bien, reemplaza archivo original con el archivo temporal creado:
+            File.Delete(archivo);
+            File.Move(archivo + "_TEMPORAL", archivo);
+        }
+
+
+        static public void GuardarArchivoComo()
+        {
+            // Crea SaveFileDialog:
+            SaveFileDialog saveFile = new SaveFileDialog();
+            // Modifica saveFile:
+            saveFile.Title = "Guardar como...";
+            // Especifica tipos de archivos validos:
+            saveFile.Filter = "Archivo de texto|*.txt|Archivo CSV|*.csv";
+            // Muestra saveFile:
+            DialogResult saveFileResult = saveFile.ShowDialog();
+            // Interpreta respuesta de saveFile:
+            if(saveFileResult == DialogResult.OK)
+            {
+                GuardarArchivo(saveFile.FileName);
+            }            
+        }
 
 
         static public void MostrarDetalles()
