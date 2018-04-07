@@ -31,28 +31,28 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panelBarraEstado = new System.Windows.Forms.Panel();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.button_Minimizar = new System.Windows.Forms.Button();
-            this.button_Cerrar = new System.Windows.Forms.Button();
             this.MenuLateral = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel_Seleccion = new System.Windows.Forms.Panel();
-            this.button_MenuLateral = new System.Windows.Forms.Button();
-            this.button_PreProcesamiento = new System.Windows.Forms.Button();
-            this.button_Archivo = new System.Windows.Forms.Button();
-            this.button_Inicio = new System.Windows.Forms.Button();
             this.timerMenuLateral = new System.Windows.Forms.Timer(this.components);
             this.timerMinimizarVentana = new System.Windows.Forms.Timer(this.components);
             this.panelPrincipal = new System.Windows.Forms.Panel();
             this.customControlInicio1 = new BlitzWolf.CustomControlInicio();
             this.customControlArchivo1 = new BlitzWolf.CustomControlArchivo();
             this.customControlPreProcesamiento1 = new BlitzWolf.CustomControlPreProcesamiento();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button_MenuLateral = new System.Windows.Forms.Button();
+            this.button_PreProcesamiento = new System.Windows.Forms.Button();
+            this.button_Archivo = new System.Windows.Forms.Button();
+            this.button_Inicio = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.button_Minimizar = new System.Windows.Forms.Button();
+            this.button_Cerrar = new System.Windows.Forms.Button();
             this.panelBarraEstado.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.MenuLateral.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelPrincipal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // panelBarraEstado
@@ -71,46 +71,6 @@
             this.panelBarraEstado.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelBarraEstado_MouseMove);
             this.panelBarraEstado.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelBarraEstado_MouseUp);
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::BlitzWolf.Properties.Resources.logo4;
-            this.pictureBox2.Location = new System.Drawing.Point(10, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(40, 40);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 2;
-            this.pictureBox2.TabStop = false;
-            // 
-            // button_Minimizar
-            // 
-            this.button_Minimizar.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button_Minimizar.FlatAppearance.BorderSize = 0;
-            this.button_Minimizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Minimizar.Image = global::BlitzWolf.Properties.Resources.minimizar2;
-            this.button_Minimizar.Location = new System.Drawing.Point(1014, 0);
-            this.button_Minimizar.Name = "button_Minimizar";
-            this.button_Minimizar.Size = new System.Drawing.Size(40, 40);
-            this.button_Minimizar.TabIndex = 1;
-            this.button_Minimizar.UseVisualStyleBackColor = true;
-            this.button_Minimizar.Click += new System.EventHandler(this.button_Minimizar_Click);
-            this.button_Minimizar.MouseEnter += new System.EventHandler(this.button_Minimizar_MouseEnter);
-            this.button_Minimizar.MouseLeave += new System.EventHandler(this.button_Minimizar_MouseLeave);
-            // 
-            // button_Cerrar
-            // 
-            this.button_Cerrar.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button_Cerrar.FlatAppearance.BorderSize = 0;
-            this.button_Cerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Cerrar.Image = global::BlitzWolf.Properties.Resources.apagar;
-            this.button_Cerrar.Location = new System.Drawing.Point(1060, 0);
-            this.button_Cerrar.Name = "button_Cerrar";
-            this.button_Cerrar.Size = new System.Drawing.Size(40, 40);
-            this.button_Cerrar.TabIndex = 0;
-            this.button_Cerrar.UseVisualStyleBackColor = true;
-            this.button_Cerrar.Click += new System.EventHandler(this.button_Cerrar_Click);
-            this.button_Cerrar.MouseEnter += new System.EventHandler(this.button_Cerrar_MouseEnter);
-            this.button_Cerrar.MouseLeave += new System.EventHandler(this.button_Cerrar_MouseLeave);
-            // 
             // MenuLateral
             // 
             this.MenuLateral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -126,16 +86,6 @@
             this.MenuLateral.Name = "MenuLateral";
             this.MenuLateral.Size = new System.Drawing.Size(60, 660);
             this.MenuLateral.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::BlitzWolf.Properties.Resources.logo4;
-            this.pictureBox1.Location = new System.Drawing.Point(55, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(150, 150);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
             // 
             // label1
             // 
@@ -155,6 +105,64 @@
             this.panel_Seleccion.Name = "panel_Seleccion";
             this.panel_Seleccion.Size = new System.Drawing.Size(10, 40);
             this.panel_Seleccion.TabIndex = 5;
+            // 
+            // timerMenuLateral
+            // 
+            this.timerMenuLateral.Interval = 10;
+            this.timerMenuLateral.Tick += new System.EventHandler(this.timerMenuLateral_Tick);
+            // 
+            // timerMinimizarVentana
+            // 
+            this.timerMinimizarVentana.Interval = 10;
+            this.timerMinimizarVentana.Tick += new System.EventHandler(this.timerMinimizarVentana_Tick);
+            // 
+            // panelPrincipal
+            // 
+            this.panelPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelPrincipal.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelPrincipal.Controls.Add(this.customControlInicio1);
+            this.panelPrincipal.Controls.Add(this.customControlArchivo1);
+            this.panelPrincipal.Controls.Add(this.customControlPreProcesamiento1);
+            this.panelPrincipal.Location = new System.Drawing.Point(60, 40);
+            this.panelPrincipal.Name = "panelPrincipal";
+            this.panelPrincipal.Size = new System.Drawing.Size(1040, 660);
+            this.panelPrincipal.TabIndex = 2;
+            // 
+            // customControlInicio1
+            // 
+            this.customControlInicio1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.customControlInicio1.Location = new System.Drawing.Point(0, 0);
+            this.customControlInicio1.Name = "customControlInicio1";
+            this.customControlInicio1.Size = new System.Drawing.Size(1040, 660);
+            this.customControlInicio1.TabIndex = 0;
+            // 
+            // customControlArchivo1
+            // 
+            this.customControlArchivo1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.customControlArchivo1.Location = new System.Drawing.Point(0, 0);
+            this.customControlArchivo1.Name = "customControlArchivo1";
+            this.customControlArchivo1.Size = new System.Drawing.Size(1040, 660);
+            this.customControlArchivo1.TabIndex = 1;
+            // 
+            // customControlPreProcesamiento1
+            // 
+            this.customControlPreProcesamiento1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.customControlPreProcesamiento1.Location = new System.Drawing.Point(0, 0);
+            this.customControlPreProcesamiento1.Name = "customControlPreProcesamiento1";
+            this.customControlPreProcesamiento1.Size = new System.Drawing.Size(1040, 660);
+            this.customControlPreProcesamiento1.TabIndex = 2;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::BlitzWolf.Properties.Resources.logo4;
+            this.pictureBox1.Location = new System.Drawing.Point(55, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(150, 150);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
             // 
             // button_MenuLateral
             // 
@@ -228,53 +236,45 @@
             this.button_Inicio.UseVisualStyleBackColor = true;
             this.button_Inicio.Click += new System.EventHandler(this.button_Inicio_Click);
             // 
-            // timerMenuLateral
+            // pictureBox2
             // 
-            this.timerMenuLateral.Interval = 10;
-            this.timerMenuLateral.Tick += new System.EventHandler(this.timerMenuLateral_Tick);
+            this.pictureBox2.Image = global::BlitzWolf.Properties.Resources.logo4;
+            this.pictureBox2.Location = new System.Drawing.Point(10, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(40, 40);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 2;
+            this.pictureBox2.TabStop = false;
             // 
-            // timerMinimizarVentana
+            // button_Minimizar
             // 
-            this.timerMinimizarVentana.Interval = 10;
-            this.timerMinimizarVentana.Tick += new System.EventHandler(this.timerMinimizarVentana_Tick);
+            this.button_Minimizar.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button_Minimizar.FlatAppearance.BorderSize = 0;
+            this.button_Minimizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Minimizar.Image = global::BlitzWolf.Properties.Resources.minimizar;
+            this.button_Minimizar.Location = new System.Drawing.Point(1014, 0);
+            this.button_Minimizar.Name = "button_Minimizar";
+            this.button_Minimizar.Size = new System.Drawing.Size(40, 40);
+            this.button_Minimizar.TabIndex = 1;
+            this.button_Minimizar.UseVisualStyleBackColor = true;
+            this.button_Minimizar.Click += new System.EventHandler(this.button_Minimizar_Click);
+            this.button_Minimizar.MouseEnter += new System.EventHandler(this.button_Minimizar_MouseEnter);
+            this.button_Minimizar.MouseLeave += new System.EventHandler(this.button_Minimizar_MouseLeave);
             // 
-            // panelPrincipal
+            // button_Cerrar
             // 
-            this.panelPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelPrincipal.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panelPrincipal.Controls.Add(this.customControlInicio1);
-            this.panelPrincipal.Controls.Add(this.customControlArchivo1);
-            this.panelPrincipal.Controls.Add(this.customControlPreProcesamiento1);
-            this.panelPrincipal.Location = new System.Drawing.Point(60, 40);
-            this.panelPrincipal.Name = "panelPrincipal";
-            this.panelPrincipal.Size = new System.Drawing.Size(1040, 660);
-            this.panelPrincipal.TabIndex = 2;
-            // 
-            // customControlInicio1
-            // 
-            this.customControlInicio1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.customControlInicio1.Location = new System.Drawing.Point(0, 0);
-            this.customControlInicio1.Name = "customControlInicio1";
-            this.customControlInicio1.Size = new System.Drawing.Size(1040, 660);
-            this.customControlInicio1.TabIndex = 0;
-            // 
-            // customControlArchivo1
-            // 
-            this.customControlArchivo1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.customControlArchivo1.Location = new System.Drawing.Point(0, 0);
-            this.customControlArchivo1.Name = "customControlArchivo1";
-            this.customControlArchivo1.Size = new System.Drawing.Size(1040, 660);
-            this.customControlArchivo1.TabIndex = 1;
-            // 
-            // customControlPreProcesamiento1
-            // 
-            this.customControlPreProcesamiento1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.customControlPreProcesamiento1.Location = new System.Drawing.Point(0, 0);
-            this.customControlPreProcesamiento1.Name = "customControlPreProcesamiento1";
-            this.customControlPreProcesamiento1.Size = new System.Drawing.Size(1040, 660);
-            this.customControlPreProcesamiento1.TabIndex = 2;
+            this.button_Cerrar.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button_Cerrar.FlatAppearance.BorderSize = 0;
+            this.button_Cerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Cerrar.Image = global::BlitzWolf.Properties.Resources.apagar;
+            this.button_Cerrar.Location = new System.Drawing.Point(1060, 0);
+            this.button_Cerrar.Name = "button_Cerrar";
+            this.button_Cerrar.Size = new System.Drawing.Size(40, 40);
+            this.button_Cerrar.TabIndex = 0;
+            this.button_Cerrar.UseVisualStyleBackColor = true;
+            this.button_Cerrar.Click += new System.EventHandler(this.button_Cerrar_Click);
+            this.button_Cerrar.MouseEnter += new System.EventHandler(this.button_Cerrar_MouseEnter);
+            this.button_Cerrar.MouseLeave += new System.EventHandler(this.button_Cerrar_MouseLeave);
             // 
             // Form1
             // 
@@ -292,11 +292,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Blitz Wolf";
             this.panelBarraEstado.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.MenuLateral.ResumeLayout(false);
             this.MenuLateral.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelPrincipal.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }

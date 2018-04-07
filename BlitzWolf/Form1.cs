@@ -168,7 +168,7 @@ namespace BlitzWolf
 
         private void button_Minimizar_MouseLeave(object sender, EventArgs e)
         {
-            this.button_Minimizar.Image = BlitzWolf.Properties.Resources.minimizar2;
+            this.button_Minimizar.Image = BlitzWolf.Properties.Resources.minimizar;
         }
 
 

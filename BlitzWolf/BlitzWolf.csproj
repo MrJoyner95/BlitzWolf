@@ -70,6 +70,12 @@
       <DependentUpon>CustomControlInicio.cs</DependentUpon>
     </Compile>
     <Compile Include="Global.cs" />
+    <Compile Include="PopUpModificarAtributo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopUpModificarAtributo.Designer.cs">
+      <DependentUpon>PopUpModificarAtributo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CustomControlArchivo.resx">
@@ -83,6 +89,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControlInicio.resx">
       <DependentUpon>CustomControlInicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopUpModificarAtributo.resx">
+      <DependentUpon>PopUpModificarAtributo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -190,6 +199,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bivariable_A.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancelar_G_A.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no_G.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no_G_A.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok_G.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok_G_A.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancelar_G.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no_A.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok_A.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

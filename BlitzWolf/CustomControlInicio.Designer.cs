@@ -41,6 +41,7 @@
             this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.guardarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Instancias)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -73,10 +74,13 @@
             this.dataGridView_Instancias.Size = new System.Drawing.Size(750, 540);
             this.dataGridView_Instancias.TabIndex = 1;
             this.dataGridView_Instancias.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Instancias_CellValueChanged);
+            this.dataGridView_Instancias.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_Instancias_ColumnHeaderMouseDoubleClick);
+            this.dataGridView_Instancias.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView_Instancias_RowsAdded);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(20, 30);
             this.panel1.Name = "panel1";
@@ -176,6 +180,16 @@
             this.cerrarToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.cerrarToolStripMenuItem.Text = "Cerrar";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(760, 19);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // CustomControlInicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -212,5 +226,6 @@
         private System.Windows.Forms.ToolStripMenuItem guardarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem guardarComoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
     }
 }

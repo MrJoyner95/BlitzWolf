@@ -34,11 +34,16 @@ namespace BlitzWolf
             }
         }
         static public List<Attribute> DataSet_Attributes = new List<Attribute>();
+        static public List<string> DataSet_Classes = new List<string>();
 
         // Variables del archivo:
-        static public List<string> DatosComplementoArchivo = new List<string>();
+        static public List<string> ComentariosArchivo = new List<string>();
         static public List<int[]> listaAtributosErroneos = new List<int[]>();
         static public bool ArchivoModificado = false;
+
+        // Variables de modificacion:
+        static public bool AtributoModificado = false;
+        static public Attribute AtributoActualizado = new Attribute();
 
 
 
@@ -82,6 +87,7 @@ namespace BlitzWolf
             DataSet_MissingValue = "?";
             DataSet_NumberOfAttributes = 0;
             DataSet_Attributes.Clear();
+            ComentariosArchivo.Clear();
 
             // Variables locales:
 
@@ -154,6 +160,11 @@ namespace BlitzWolf
                                 checkListDatos[2] = true;
                             }
                         }
+                        else if (linea[0] == '%')
+                        {
+                            // Agrega comentarios del archivo (siempre van antes de la relacion:
+                            ComentariosArchivo.Add(linea);
+                        }
                     }
                 }
             }
@@ -176,8 +187,7 @@ namespace BlitzWolf
 
         static public void CargarArchivo(string archivo)
         {
-            // Reinicia variables globales:
-            DatosComplementoArchivo.Clear();
+            // Reinicia variables globales:            
             ArchivoModificado = false;
             DataSet_Data.Clear();
             listaAtributosErroneos.Clear();
@@ -239,14 +249,20 @@ namespace BlitzWolf
                         // Se ha encontrado la etiqueta:
                         dataEncontrada = true;
                     }
-                    else if (dataEncontrada == false)
-                    {
-                        // Agrega datos complementarios del archivo (todo lo que se encuentra antes de la data exactamente igual):
-                        DatosComplementoArchivo.Add(linea);
-                    }
 
                     // Mantiene control de lineas leidas:
                     lineaActual++;
+                }
+            }
+
+            // Define las clases del conjunto de datos:
+            DataSet_Classes.Clear();
+
+            foreach (Attribute atributo in DataSet_Attributes)
+            {
+                if (atributo.type == "nominal" || atributo.type == "ordinal")
+                {
+                    DataSet_Classes.Add(atributo.name);
                 }
             }
         }
@@ -254,27 +270,43 @@ namespace BlitzWolf
 
         static public void GuardarArchivo(string archivo)
         {
+            // Comprueba que haya un archivo abierto:
+            if (archivo.Length == 0)
+                return;
+
             // Escribe todos los datos complementarios e instancias del conjunto de datos en la ruta especificada:
             try
             {
-                File.WriteAllText(archivo, DatosComplementoArchivo.ToString() + DataSet_Data.ToString());
-
                 // Escribe en el archivo (parametro false es "append = false" para que el archivo se sobreescriba), se guarda en un archivo temporal:
                 using (StreamWriter escritor = new StreamWriter(archivo + "_TEMPORAL", false))
                 {
-                    // Escribe datos complementarios del archivo:
-                    foreach(string linea in DatosComplementoArchivo)
+                    // Escribe comentarios del archivo:
+                    foreach (string linea in ComentariosArchivo)
                     {
                         escritor.WriteLine(linea);
                     }
+                    escritor.WriteLine();
+
+                    // Escribe nombre del DataSet:
+                    escritor.WriteLine("@relation " + DataSet_Name);
+
+                    // Escribe atributos del DataSet:
+                    foreach (Attribute atributo in DataSet_Attributes)
+                    {
+                        escritor.WriteLine("@attribute " + atributo.name + " " + atributo.type + " " + atributo.regularExpression.ToString());
+                    }
+
+                    // Escribe simbolo del valor faltante:
+                    escritor.WriteLine("@missingValue " + DataSet_MissingValue);
+                    escritor.WriteLine();
 
                     // Escribe instancias del DataSet:
                     escritor.WriteLine("@data");
-                    foreach(string[] instancia in DataSet_Data)
+                    foreach (string[] instancia in DataSet_Data)
                     {
-                        for(int x = 0; x < DataSet_Attributes.Count; x++)
+                        for (int x = 0; x < DataSet_Attributes.Count; x++)
                         {
-                            if(x == DataSet_Attributes.Count - 1)
+                            if (x == DataSet_Attributes.Count - 1)
                             {
                                 // Es el ultimo atributo de la instancia, no se escribe coma al final y se da un salto de linea:
                                 escritor.Write(instancia[x]);
@@ -316,10 +348,91 @@ namespace BlitzWolf
             // Muestra saveFile:
             DialogResult saveFileResult = saveFile.ShowDialog();
             // Interpreta respuesta de saveFile:
-            if(saveFileResult == DialogResult.OK)
+            if (saveFileResult == DialogResult.OK)
             {
                 GuardarArchivo(saveFile.FileName);
-            }            
+            }
+        }
+
+
+        static public Attribute BuscarAtributo(string nombreAtributo)
+        {
+            Attribute atributoEncontrado = DataSet_Attributes.Find(x => x.name == nombreAtributo);
+
+
+            Console.WriteLine("******************************** BuscarAtributo ********************************");
+            Console.WriteLine("\tAtributo: " + atributoEncontrado.name + ", Tipo: " + atributoEncontrado.type + ", Expresion regular: " + atributoEncontrado.regularExpression);
+
+
+            if (atributoEncontrado.name != null) // Encontro el atributo:
+            {
+                // Regresa el objeto atributo:
+                return atributoEncontrado;
+            }
+            else // Atributo no encotrado:
+            {
+                // Crea un nuevo atributo vacio:
+                //Regex regex = new Regex(" ");
+                Attribute atributoVacio = new Attribute(null, null, null);
+                return atributoVacio;
+            }
+        }
+
+
+        static public bool ActualizarAtributo(string nombreAtributo, Attribute atributoNuevo)
+        {
+            Attribute atributoActual = DataSet_Attributes.Find(x => x.name == nombreAtributo);
+            Console.WriteLine("******************************** ActualizarAtributo ********************************");
+            Console.WriteLine("******************************** atributoActual");
+            Console.WriteLine("\tAtributo: " + atributoActual.name + ", Tipo: " + atributoActual.type + ", Expresion regular: " + atributoActual.regularExpression);
+            Console.WriteLine("******************************** atributoNuevo");
+            Console.WriteLine("\tAtributo: " + atributoNuevo.name + ", Tipo: " + atributoNuevo.type + ", Expresion regular: " + atributoNuevo.regularExpression);
+
+            // Encontro el atributo:
+            if (atributoActual.name != null)
+            {
+                // Actualiza atributo con valores del nuevo atrinuto:
+                // Encuentra indice del atributo:
+                int indiceAtributoActual = DataSet_Attributes.IndexOf(atributoActual);
+                // Agrega atributo nuevo a la lista:
+                DataSet_Attributes.Insert(indiceAtributoActual, atributoNuevo);
+                // Elimina atributo original:
+                DataSet_Attributes.RemoveAt(indiceAtributoActual + 1);
+
+                // Actualizacion exitosa:
+                ArchivoModificado = true;
+                AtributoModificado = true;
+                AtributoActualizado = atributoNuevo;
+                return true;
+            }
+            else
+            {
+                // Atributo no encotrado:
+                AtributoModificado = false;
+                return false;
+            }
+        }
+
+
+        static public void ValidarExpresionesRegulares()
+        {
+            // Limpia lista de erroneos:
+            listaAtributosErroneos.Clear();
+
+            // Recorre lista de atributos y compara su expresion regular con todas sus instancias:
+            for(int x = 0; x < DataSet_Attributes.Count; x++)
+            {
+                // Recorre lista de instancias:
+                for(int y = 0; y < DataSet_Data.Count; y++)
+                {
+                    // Comprueba que el atributo cumpla con la expresion regular:
+                    if (!DataSet_Attributes[x].regularExpression.Match(DataSet_Data[y][x]).Success)
+                    {
+                        // Agrega la posicion de la instancia y el atributo a la lista porque no cumple con la expresion regular:
+                        listaAtributosErroneos.Add(new int[] { y, x });
+                    }
+                }
+            }
         }
 
 
@@ -335,6 +448,13 @@ namespace BlitzWolf
             foreach (BlitzWolf.Global.Attribute atributo in DataSet_Attributes)
             {
                 Console.WriteLine("\tAtributo: " + atributo.name + ", Tipo: " + atributo.type + ", Expresion regular: " + atributo.regularExpression);
+            }
+
+            // Muestra clases:
+            Console.WriteLine("\n******** CLASES ********\n");
+            foreach (string clase in DataSet_Classes)
+            {
+                Console.WriteLine(clase);
             }
 
             // Muestra instancias:
@@ -354,8 +474,11 @@ namespace BlitzWolf
             foreach (int[] posicionAtributo in listaAtributosErroneos)
             {
                 Console.WriteLine(posicionAtributo[0] + "," + posicionAtributo[1]);
-            }
+            }            
         }
+
+
+
 
 
 
