@@ -63,6 +63,26 @@ namespace BlitzWolf.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap agregarColumna {
+            get {
+                object obj = ResourceManager.GetObject("agregarColumna", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap agregarFila {
+            get {
+                object obj = ResourceManager.GetObject("agregarFila", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap apagar {
             get {
                 object obj = ResourceManager.GetObject("apagar", resourceCulture);
@@ -106,6 +126,36 @@ namespace BlitzWolf.Properties {
         internal static System.Drawing.Bitmap bivariable_A {
             get {
                 object obj = ResourceManager.GetObject("bivariable_A", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dataSet {
+            get {
+                object obj = ResourceManager.GetObject("dataSet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap eliminarColumna {
+            get {
+                object obj = ResourceManager.GetObject("eliminarColumna", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap eliminarFila {
+            get {
+                object obj = ResourceManager.GetObject("eliminarFila", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -12,41 +12,60 @@ using System.Text.RegularExpressions;
 
 namespace BlitzWolf
 {
-    public partial class PopUpModificarAtributo : Form
+    public partial class PopUpAtributo : Form
     {
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Variables Globales ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Global.Attribute AtributoOriginal;
+        string ModoVentana;
 
 
 
 
 
-        public PopUpModificarAtributo(Global.Attribute attribute)
+        public PopUpAtributo(Global.Attribute attribute, string modo)
         {
             InitializeComponent();
 
             // Guarda el atributo original:
             AtributoOriginal = attribute;
 
-            // Inicializa valores del atributo:
-            try
+            // Asigna modo de ventana:
+            ModoVentana = modo;
+
+            // Modifica ventana dependiendo el modo:            
+            if(ModoVentana == "Agregar")
             {
-                // Muestra valores del atributo en textBoxes:
-                textBox_name.Text = attribute.name;
-                textBox_type.Text = attribute.type;
-                textBox_regularExpression.Text = attribute.regularExpression.ToString();
+                label_TituloVentana.Text = "Agregar Atributo";
             }
-            catch
+            else if (ModoVentana == "Modificar")
             {
-                // Crea un nuevo atributo vacio (espacios en lugar de nulls para que no truene el programa):
-                Regex regex = new Regex(" ");
-                Global.Attribute atributoVacio = new Global.Attribute(" ", " ", regex);
-                // Muestra valores del atributo en textBoxes:
-                textBox_name.Text = attribute.name;
-                textBox_type.Text = attribute.type;
-                textBox_regularExpression.Text = attribute.regularExpression.ToString();
+                label_TituloVentana.Text = "Modificar Atributo";
+
+                // Inicializa valores del atributo:
+                try
+                {
+                    // Muestra valores del atributo en textBoxes:
+                    textBox_name.Text = attribute.name;
+                    textBox_type.Text = attribute.type;
+                    textBox_regularExpression.Text = attribute.regularExpression.ToString();
+                }
+                catch
+                {
+                    // Crea un nuevo atributo vacio (espacios en lugar de nulls para que no truene el programa):
+                    Regex regex = new Regex(" ");
+                    Global.Attribute atributoVacio = new Global.Attribute(" ", " ", regex);
+                    // Muestra valores del atributo en textBoxes:
+                    textBox_name.Text = attribute.name;
+                    textBox_type.Text = attribute.type;
+                    textBox_regularExpression.Text = attribute.regularExpression.ToString();
+                }
+            }
+            else
+            {
+                label_TituloVentana.Text = "Ventana Atributo";
             }
         }
+
 
         private void PopUpModificarAtributo_Load(object sender, EventArgs e)
         {
@@ -119,6 +138,33 @@ namespace BlitzWolf
 
         private void button_Guardar_Click(object sender, EventArgs e)
         {
+            if (ModoVentana == "Agregar")
+            {
+                AgregarAtributo();
+            }
+            else if (ModoVentana == "Modificar")
+            {
+                ModificarAtributo();
+            }
+        }
+
+        private void button_Cancelar_Click(object sender, EventArgs e)
+        {
+            
+            // Atributo Modificado se queda como el original:
+            Global.AtributoModificado = false;
+            Global.AtributoActualizado = AtributoOriginal;
+            this.Close();
+        }
+
+        
+        
+
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Funciones ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        private void ModificarAtributo()
+        {
             // Crea atributo con valores de la ventana:
             Regex regex = new Regex(textBox_regularExpression.Text);
             Global.Attribute attribute = new Global.Attribute(textBox_name.Text, textBox_type.Text, regex);
@@ -127,7 +173,7 @@ namespace BlitzWolf
             bool atributoActualizado = Global.ActualizarAtributo(AtributoOriginal.name, attribute);
 
             // Interpreta resultado:
-            if(atributoActualizado == true)
+            if (atributoActualizado == true)
             {
                 this.Close();
             }
@@ -137,26 +183,27 @@ namespace BlitzWolf
             }
         }
 
-        private void button_Cancelar_Click(object sender, EventArgs e)
+
+        private void AgregarAtributo()
         {
-            // Atributo Modificado se queda como el original:
-            Global.AtributoModificado = false;
-            Global.AtributoActualizado = AtributoOriginal;
-            this.Close();
+            // Crea atributo con valores de la ventana:
+            Regex regex = new Regex(textBox_regularExpression.Text);
+            Global.Attribute attribute = new Global.Attribute(textBox_name.Text, textBox_type.Text, regex);
+
+            // Agrega atributo al DataSet:
+            bool atributoAgregado = Global.AgregarAtributo(attribute);
+
+            // Especifica agregacion y cierra ventana:
+            if (atributoAgregado == true)
+            {
+                Global.AtributoModificado = true;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("No se ha podido guardar el nuevo atributo. Por favor, verifique la información ingresada e intente de nuevo.", "Error: Atributo no agregado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
-        
-
-
-
-
-
-
-
-
-        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Funciones ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
 
 
 

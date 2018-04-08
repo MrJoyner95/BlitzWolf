@@ -1,6 +1,6 @@
 ﻿namespace BlitzWolf
 {
-    partial class PopUpModificarAtributo
+    partial class PopUpAtributo
     {
         /// <summary>
         /// Required designer variable.
@@ -39,7 +39,7 @@
             this.button_Cancelar = new System.Windows.Forms.Button();
             this.panelInferior = new System.Windows.Forms.Panel();
             this.panelSuperior = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.label_TituloVentana = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelInferior.SuspendLayout();
             this.panelSuperior.SuspendLayout();
@@ -99,7 +99,7 @@
             this.textBox_name.Location = new System.Drawing.Point(8, 69);
             this.textBox_name.Name = "textBox_name";
             this.textBox_name.Size = new System.Drawing.Size(298, 27);
-            this.textBox_name.TabIndex = 9;
+            this.textBox_name.TabIndex = 0;
             // 
             // textBox_type
             // 
@@ -109,7 +109,7 @@
             this.textBox_type.Location = new System.Drawing.Point(8, 121);
             this.textBox_type.Name = "textBox_type";
             this.textBox_type.Size = new System.Drawing.Size(298, 27);
-            this.textBox_type.TabIndex = 10;
+            this.textBox_type.TabIndex = 1;
             // 
             // textBox_regularExpression
             // 
@@ -119,7 +119,7 @@
             this.textBox_regularExpression.Location = new System.Drawing.Point(8, 173);
             this.textBox_regularExpression.Name = "textBox_regularExpression";
             this.textBox_regularExpression.Size = new System.Drawing.Size(298, 27);
-            this.textBox_regularExpression.TabIndex = 11;
+            this.textBox_regularExpression.TabIndex = 2;
             // 
             // button_Guardar
             // 
@@ -133,7 +133,7 @@
             this.button_Guardar.Location = new System.Drawing.Point(0, 0);
             this.button_Guardar.Name = "button_Guardar";
             this.button_Guardar.Size = new System.Drawing.Size(225, 40);
-            this.button_Guardar.TabIndex = 2;
+            this.button_Guardar.TabIndex = 4;
             this.button_Guardar.Text = " Guardar";
             this.button_Guardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button_Guardar.UseVisualStyleBackColor = true;
@@ -153,7 +153,7 @@
             this.button_Cancelar.Location = new System.Drawing.Point(225, 0);
             this.button_Cancelar.Name = "button_Cancelar";
             this.button_Cancelar.Size = new System.Drawing.Size(225, 40);
-            this.button_Cancelar.TabIndex = 3;
+            this.button_Cancelar.TabIndex = 5;
             this.button_Cancelar.Text = " Cancelar";
             this.button_Cancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button_Cancelar.UseVisualStyleBackColor = true;
@@ -175,7 +175,7 @@
             // panelSuperior
             // 
             this.panelSuperior.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
-            this.panelSuperior.Controls.Add(this.label2);
+            this.panelSuperior.Controls.Add(this.label_TituloVentana);
             this.panelSuperior.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSuperior.Location = new System.Drawing.Point(0, 0);
             this.panelSuperior.Name = "panelSuperior";
@@ -185,19 +185,19 @@
             this.panelSuperior.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelSuperior_MouseMove);
             this.panelSuperior.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelSuperior_MouseUp);
             // 
-            // label2
+            // label_TituloVentana
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(131, 8);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(189, 24);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Modificar Atributo";
+            this.label_TituloVentana.AutoSize = true;
+            this.label_TituloVentana.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.label_TituloVentana.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_TituloVentana.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label_TituloVentana.Location = new System.Drawing.Point(131, 8);
+            this.label_TituloVentana.Name = "label_TituloVentana";
+            this.label_TituloVentana.Size = new System.Drawing.Size(189, 24);
+            this.label_TituloVentana.TabIndex = 9;
+            this.label_TituloVentana.Text = "Modificar Atributo";
             // 
-            // PopUpModificarAtributo
+            // PopUpAtributo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -213,7 +213,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "PopUpModificarAtributo";
+            this.Name = "PopUpAtributo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Modificar Atributo";
             this.Load += new System.EventHandler(this.PopUpModificarAtributo_Load);
@@ -238,6 +238,6 @@
         private System.Windows.Forms.Button button_Cancelar;
         private System.Windows.Forms.Panel panelInferior;
         private System.Windows.Forms.Panel panelSuperior;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label_TituloVentana;
     }
 }

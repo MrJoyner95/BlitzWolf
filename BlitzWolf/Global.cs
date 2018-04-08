@@ -38,18 +38,22 @@ namespace BlitzWolf
 
         // Variables del archivo:
         static public List<string> ComentariosArchivo = new List<string>();
-        static public List<int[]> listaAtributosErroneos = new List<int[]>();
+        static public List<int[]> listaValoresErroneos = new List<int[]>();
         static public bool ArchivoModificado = false;
 
-        // Variables de modificacion:
+        // Variables de modificacion de atributo:
         static public bool AtributoModificado = false;
         static public Attribute AtributoActualizado = new Attribute();
+        // Variables de modificacion de atributo:
+        static public bool ValoresReemplazados = false;
 
 
 
 
 
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Funciones Globales ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Administracion de archivo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         static public void AbrirArchivo()
         {
@@ -190,7 +194,7 @@ namespace BlitzWolf
             // Reinicia variables globales:            
             ArchivoModificado = false;
             DataSet_Data.Clear();
-            listaAtributosErroneos.Clear();
+            listaValoresErroneos.Clear();
 
             // Variable para saber cuando se encontro la etiqueta @data:
             bool dataEncontrada = false;
@@ -225,7 +229,7 @@ namespace BlitzWolf
                                     if (!DataSet_Attributes[x].regularExpression.Match(instancia[x]).Success)
                                     {
                                         // Agrega la posicion de la instancia y el atributo a la lista porque no cumple con la expresion regular:
-                                        listaAtributosErroneos.Add(new int[] { numeroInstancia, x });
+                                        listaValoresErroneos.Add(new int[] { numeroInstancia, x });
                                     }
                                 }
                             }
@@ -355,6 +359,9 @@ namespace BlitzWolf
         }
 
 
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Atributos ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
         static public Attribute BuscarAtributo(string nombreAtributo)
         {
             Attribute atributoEncontrado = DataSet_Attributes.Find(x => x.name == nombreAtributo);
@@ -414,10 +421,93 @@ namespace BlitzWolf
         }
 
 
+        static public bool AgregarAtributo(Attribute attribute)
+        {
+            try
+            {
+                // Agrega atributo a la lista:
+                DataSet_Attributes.Add(attribute);
+                // Aumenta numero de atributos:
+                DataSet_NumberOfAttributes++;
+                // Identifica si es una clase:
+                if (attribute.type == "nominal" || attribute.type == "ordinal")
+                {
+                    DataSet_Classes.Add(attribute.name);
+                }
+
+                // Agrega columna vacia a instancias en DataSet_Data:
+                for (int x = 0; x < DataSet_Data.Count; x++)
+                {
+                    // Copia instancia actual a lista:
+                    var instanciaList = DataSet_Data[x].ToList();
+                    // Agrega atributo vacio:
+                    instanciaList.Add(" ");
+                    // Convierte lista a arreglo:
+                    string[] nuevaInstancia = instanciaList.ToArray();
+
+                    // Agrega nueva instancia al DataSet:
+                    DataSet_Data.Insert(x, nuevaInstancia);
+                    // Elimina instancia original:
+                    DataSet_Data.RemoveAt(x + 1);
+                }
+
+                // Confirma adicion:
+                ArchivoModificado = true;
+                return true;
+            }
+            catch
+            {
+                // Error al agregar:
+                return false;
+            }
+        }
+
+
+        static public bool EliminarAtributo(string attributeName)
+        {
+            try
+            {
+                // Encuentra atributo en DataSet:
+                Attribute attributeFound = DataSet_Attributes.Find(x => x.name == attributeName);
+                // Obtiene indice del atributo:
+                int attributeIndex = DataSet_Attributes.IndexOf(attributeFound);
+
+                // Elimina atributo del DataSet:
+                DataSet_Attributes.Remove(attributeFound);
+                // Disminuye numero de atributos:
+                DataSet_NumberOfAttributes--;
+                // Elimina atributo de las instancias:
+                for (int x = 0; x < DataSet_Data.Count; x++)
+                {
+                    // Copia instancia actual a lista:
+                    var instanciaList = DataSet_Data[x].ToList();
+                    // Agrega atributo vacio:
+                    instanciaList.RemoveAt(attributeIndex);
+                    // Convierte lista a arreglo:
+                    string[] nuevaInstancia = instanciaList.ToArray();
+
+                    // Agrega nueva instancia al DataSet:
+                    DataSet_Data.Insert(x, nuevaInstancia);
+                    // Elimina instancia original:
+                    DataSet_Data.RemoveAt(x + 1);
+                }
+
+                // Confirma eliminacion:
+                ArchivoModificado = true;
+                return true;
+            }
+            catch
+            {
+                // Error al eliminar:
+                return false;
+            }
+        }
+
+
         static public void ValidarExpresionesRegulares()
         {
             // Limpia lista de erroneos:
-            listaAtributosErroneos.Clear();
+            listaValoresErroneos.Clear();
 
             // Recorre lista de atributos y compara su expresion regular con todas sus instancias:
             for(int x = 0; x < DataSet_Attributes.Count; x++)
@@ -429,11 +519,176 @@ namespace BlitzWolf
                     if (!DataSet_Attributes[x].regularExpression.Match(DataSet_Data[y][x]).Success)
                     {
                         // Agrega la posicion de la instancia y el atributo a la lista porque no cumple con la expresion regular:
-                        listaAtributosErroneos.Add(new int[] { y, x });
+                        listaValoresErroneos.Add(new int[] { y, x });
                     }
                 }
             }
         }
+
+
+        static public bool ValidarExpresionRegular(int posicionX, int posicionY)
+        {            
+            if (DataSet_Attributes[posicionY].regularExpression.Match(DataSet_Data[posicionX][posicionY]).Success)
+            {
+                // ++++++++++++++++ Valor nuevo cumple con la expresion regular: ++++++++++++++++
+
+                // Busca instancia de lista erroneos:
+                int posicionAtributoErroneo = 0;
+                bool atributoErroneoEnLista = false;
+
+                foreach (int[] atributoErroneo in listaValoresErroneos)
+                {
+                    if (atributoErroneo[0] == posicionX && atributoErroneo[1] == posicionY)
+                    {
+                        atributoErroneoEnLista = true;
+                        break;
+                    }
+                    posicionAtributoErroneo++;
+                }
+
+                // Si el atributo se encuentra en la lista de erroneos lo elimina:
+                if (atributoErroneoEnLista == true)
+                {
+                    listaValoresErroneos.RemoveAt(posicionAtributoErroneo);
+                }
+
+                // Regresa confirmacion de que el valor cumple con la expresion regular:
+                return true;
+            }
+            else
+            {
+                // ++++++++++++++++ Valor nuevo NO cumple con la expresion regular: ++++++++++++++++
+
+                // Busca instancia de lista erroneos:
+                int posicionAtributoErroneo = 0;
+                bool atributoErroneoEnLista = false;
+
+                foreach (int[] atributoErroneo in listaValoresErroneos)
+                {
+                    if (atributoErroneo[0] == posicionX && atributoErroneo[1] == posicionY)
+                    {
+                        atributoErroneoEnLista = true;
+                        break;
+                    }
+                    posicionAtributoErroneo++;
+                }
+
+                // Si el atributo NO se encuentra en la lista de erroneos, lo agrega:
+                if (atributoErroneoEnLista == false)
+                {
+                    int[] nuevoAtributo = new int[] { posicionX, posicionY };
+                    listaValoresErroneos.Add(nuevoAtributo);
+                }
+
+                // Regresa confirmacion, el valor NO cumple con la expresion regular:
+                return false;
+            }
+        }
+
+
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Instancias ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        static public bool AgregarInstancia(string[] nuevaInstancia)
+        {
+            try
+            {
+                // Agrega atributo a la lista:
+                DataSet_Data.Add(nuevaInstancia);
+                // Aumenta numero de instancias:
+                DataSet_NumberOfInstances = DataSet_Data.Count;
+                // Confirma adicion:
+                return true;
+            }
+            catch
+            {
+                // Error al agregar:
+                return false;
+            }
+        }
+
+
+        static public bool EliminarInstancia(int indice)
+        {
+            try
+            {
+                Console.WriteLine("EliminarInstancia");
+
+                // elimina instancia de la lista:
+                Global.DataSet_Data.RemoveAt(indice);
+                // Actualiza numero de instancias:
+                DataSet_NumberOfInstances = DataSet_Data.Count;
+
+                // Elimina valores de la instancia de listaErroneos:
+                // Encuentra el indice del valor erroneo
+                int indiceActual = 0;
+                List<int> indicesValoresEliminados = new List<int>();
+
+                foreach(int[] posicion in listaValoresErroneos)
+                {
+                    if (posicion[0] == indice)
+                    {
+                        Console.WriteLine(posicion[0] + ", " + posicion[1]);
+                        indicesValoresEliminados.Add(indiceActual);
+                    }
+
+                    indiceActual++;
+                }
+
+                // Elimina valores de instancia eliminada:
+                if(indicesValoresEliminados.Count > 0)
+                {
+                    foreach(int indiceValor in indicesValoresEliminados)
+                    {
+                        listaValoresErroneos.RemoveAt(indiceValor);
+                    }
+                }
+
+                // Confirma eliminacion:
+                ArchivoModificado = true;
+                return true;
+            }
+            catch
+            {
+                // Error al eliminar:
+                return false;
+            }
+        }
+
+
+        static public bool BuscarYReemplazar(int indiceAtributo, string valorOriginal, string valorNuevo)
+        {
+            try
+            {
+                for (int x = 0; x < DataSet_Data.Count; x++)
+                {
+                    // Compara si el valor del atributo es igual al indicado:
+                    if (DataSet_Data[x][indiceAtributo] == valorOriginal)
+                    {
+                        // Reemplaza valor original con nuevo:
+                        DataSet_Data[x][indiceAtributo] = valorNuevo;
+                    }
+                }
+
+                // Valida expresiones regulares:
+                ValidarExpresionesRegulares();
+
+                // Confirma eliminacion:
+                ArchivoModificado = true;
+                ValoresReemplazados = true;
+                return true;
+            }
+            catch
+            {
+                // Error al reemplazar:
+                return false;
+            }
+        }
+
+
+
+
+
 
 
         static public void MostrarDetalles()
@@ -445,7 +700,7 @@ namespace BlitzWolf
             Console.WriteLine("DataSet_MissingValue =       " + DataSet_MissingValue);
             Console.WriteLine("DataSet_NumberOfAttributes = " + DataSet_NumberOfAttributes);
             Console.WriteLine("DataSet_Attributes:");
-            foreach (BlitzWolf.Global.Attribute atributo in DataSet_Attributes)
+            foreach (Attribute atributo in DataSet_Attributes)
             {
                 Console.WriteLine("\tAtributo: " + atributo.name + ", Tipo: " + atributo.type + ", Expresion regular: " + atributo.regularExpression);
             }
@@ -471,7 +726,7 @@ namespace BlitzWolf
 
             // Muestra posiciones de atributos erroneos:
             Console.WriteLine("\n******** ATRIBUTOS ERRONEOS ********\n");
-            foreach (int[] posicionAtributo in listaAtributosErroneos)
+            foreach (int[] posicionAtributo in listaValoresErroneos)
             {
                 Console.WriteLine(posicionAtributo[0] + "," + posicionAtributo[1]);
             }            

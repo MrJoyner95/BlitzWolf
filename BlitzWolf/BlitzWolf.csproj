@@ -70,11 +70,17 @@
       <DependentUpon>CustomControlInicio.cs</DependentUpon>
     </Compile>
     <Compile Include="Global.cs" />
-    <Compile Include="PopUpModificarAtributo.cs">
+    <Compile Include="PopUpAtributo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PopUpModificarAtributo.Designer.cs">
-      <DependentUpon>PopUpModificarAtributo.cs</DependentUpon>
+    <Compile Include="PopUpAtributo.Designer.cs">
+      <DependentUpon>PopUpAtributo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PopUpConjuntoDeDatos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopUpConjuntoDeDatos.Designer.cs">
+      <DependentUpon>PopUpConjuntoDeDatos.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,8 +96,11 @@
     <EmbeddedResource Include="CustomControlInicio.resx">
       <DependentUpon>CustomControlInicio.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PopUpModificarAtributo.resx">
-      <DependentUpon>PopUpModificarAtributo.cs</DependentUpon>
+    <EmbeddedResource Include="PopUpAtributo.resx">
+      <DependentUpon>PopUpAtributo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopUpConjuntoDeDatos.resx">
+      <DependentUpon>PopUpConjuntoDeDatos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -229,6 +238,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ok_A.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eliminarFila.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\agregarColumna.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\agregarFila.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eliminarColumna.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dataSet.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

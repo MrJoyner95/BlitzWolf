@@ -11,4 +11,5 @@ C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\De
 C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.exe
 C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.pdb
 C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.csprojResolveAssemblyReference.cache
-C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.PopUpModificarAtributo.resources
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.PopUpAtributo.resources
+C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.PopUpConjuntoDeDatos.resources
