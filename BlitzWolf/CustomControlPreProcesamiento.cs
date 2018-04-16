@@ -16,9 +16,26 @@ namespace BlitzWolf
         {
             InitializeComponent();
 
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Inicializacion de elementos visuales:
+
             // Mueve paneles a posiciones iniciales:
             this.panel_AnalisisUnivariable.Location = new Point(0, 40);
             this.panel_AnalisisBivariable.Location = new Point(-1100, 40);
+
+
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Inicialización de controles:
+
+            // Inicializa comboBox:
+            foreach (Global.Attribute attribute in Global.DataSet_Attributes)
+            {
+                this.comboBox_Atributos.Items.Add(attribute.name);
+            }
+
+
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Inicialización de variables:
+
+
+
         }
 
 
@@ -160,6 +177,40 @@ namespace BlitzWolf
             // Mueve el panel al centro:
             MoverPaneles(1);
         }
+
+        private void CustomControlPreProcesamiento_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox_Atributos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+
+
+
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Funciones ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        private void CargarDetallesAtributo(Global.Attribute attribute)
+        {
+            if(attribute.type == "nominal")
+            {
+                // 
+                // Contabiliza instancias del atributo en Data:
+                foreach(string[] instancia in Global.DataSet_Data)
+                {
+
+                }
+            }
+            else if(attribute.type == "numeric")
+            {
+
+            }            
+        }
+
 
 
 
