@@ -39,10 +39,10 @@
             this.button_AnalisisUnivariable = new System.Windows.Forms.Button();
             this.panel_Seleccion = new System.Windows.Forms.Panel();
             this.panel_Atributo = new System.Windows.Forms.Panel();
-            this.label_DataSet_NumberOfAttributes = new System.Windows.Forms.Label();
+            this.label_valoresFaltantes = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.label_DataSet_MissingValue = new System.Windows.Forms.Label();
+            this.label_tipo = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
@@ -51,24 +51,24 @@
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox_Atributos = new System.Windows.Forms.ComboBox();
             this.panel_DetallesNumericos = new System.Windows.Forms.Panel();
-            this.label17 = new System.Windows.Forms.Label();
+            this.label_desviacionEstandar = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.panel15 = new System.Windows.Forms.Panel();
-            this.label19 = new System.Windows.Forms.Label();
+            this.label_moda = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.panel16 = new System.Windows.Forms.Panel();
             this.panel17 = new System.Windows.Forms.Panel();
             this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
+            this.label_mediana = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.panel18 = new System.Windows.Forms.Panel();
-            this.label24 = new System.Windows.Forms.Label();
+            this.label_media = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.panel19 = new System.Windows.Forms.Panel();
-            this.label26 = new System.Windows.Forms.Label();
+            this.label_maximo = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.panel20 = new System.Windows.Forms.Panel();
-            this.label28 = new System.Windows.Forms.Label();
+            this.label_minimo = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.panel21 = new System.Windows.Forms.Panel();
             this.panel_DetallesNominales = new System.Windows.Forms.Panel();
@@ -77,9 +77,11 @@
             this.label31 = new System.Windows.Forms.Label();
             this.panel14 = new System.Windows.Forms.Panel();
             this.listView_posiblesValores = new System.Windows.Forms.ListView();
-            this.numero = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.nombre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cantidad = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label_valoresErroneos = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel_AnalisisUnivariable.SuspendLayout();
             this.panel_AnalisisBivariable.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -197,11 +199,14 @@
             // panel_Atributo
             // 
             this.panel_Atributo.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel_Atributo.Controls.Add(this.label_valoresErroneos);
+            this.panel_Atributo.Controls.Add(this.label5);
+            this.panel_Atributo.Controls.Add(this.panel2);
             this.panel_Atributo.Controls.Add(this.comboBox_Atributos);
-            this.panel_Atributo.Controls.Add(this.label_DataSet_NumberOfAttributes);
+            this.panel_Atributo.Controls.Add(this.label_valoresFaltantes);
             this.panel_Atributo.Controls.Add(this.label11);
             this.panel_Atributo.Controls.Add(this.panel7);
-            this.panel_Atributo.Controls.Add(this.label_DataSet_MissingValue);
+            this.panel_Atributo.Controls.Add(this.label_tipo);
             this.panel_Atributo.Controls.Add(this.label9);
             this.panel_Atributo.Controls.Add(this.panel6);
             this.panel_Atributo.Controls.Add(this.label4);
@@ -212,17 +217,17 @@
             this.panel_Atributo.Size = new System.Drawing.Size(300, 250);
             this.panel_Atributo.TabIndex = 35;
             // 
-            // label_DataSet_NumberOfAttributes
+            // label_valoresFaltantes
             // 
-            this.label_DataSet_NumberOfAttributes.AutoSize = true;
-            this.label_DataSet_NumberOfAttributes.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label_DataSet_NumberOfAttributes.Font = new System.Drawing.Font("Century Gothic", 11F);
-            this.label_DataSet_NumberOfAttributes.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label_DataSet_NumberOfAttributes.Location = new System.Drawing.Point(15, 169);
-            this.label_DataSet_NumberOfAttributes.Name = "label_DataSet_NumberOfAttributes";
-            this.label_DataSet_NumberOfAttributes.Size = new System.Drawing.Size(21, 20);
-            this.label_DataSet_NumberOfAttributes.TabIndex = 20;
-            this.label_DataSet_NumberOfAttributes.Text = "...";
+            this.label_valoresFaltantes.AutoSize = true;
+            this.label_valoresFaltantes.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label_valoresFaltantes.Font = new System.Drawing.Font("Century Gothic", 11F);
+            this.label_valoresFaltantes.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label_valoresFaltantes.Location = new System.Drawing.Point(15, 173);
+            this.label_valoresFaltantes.Name = "label_valoresFaltantes";
+            this.label_valoresFaltantes.Size = new System.Drawing.Size(21, 20);
+            this.label_valoresFaltantes.TabIndex = 20;
+            this.label_valoresFaltantes.Text = "...";
             // 
             // label11
             // 
@@ -230,7 +235,7 @@
             this.label11.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label11.Font = new System.Drawing.Font("Century Gothic", 11F);
             this.label11.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label11.Location = new System.Drawing.Point(15, 148);
+            this.label11.Location = new System.Drawing.Point(15, 152);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(187, 20);
             this.label11.TabIndex = 19;
@@ -239,22 +244,22 @@
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(104)))), ((int)(((byte)(11)))));
-            this.panel7.Location = new System.Drawing.Point(5, 148);
+            this.panel7.Location = new System.Drawing.Point(5, 152);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(10, 22);
             this.panel7.TabIndex = 18;
             // 
-            // label_DataSet_MissingValue
+            // label_tipo
             // 
-            this.label_DataSet_MissingValue.AutoSize = true;
-            this.label_DataSet_MissingValue.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label_DataSet_MissingValue.Font = new System.Drawing.Font("Century Gothic", 11F);
-            this.label_DataSet_MissingValue.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label_DataSet_MissingValue.Location = new System.Drawing.Point(15, 119);
-            this.label_DataSet_MissingValue.Name = "label_DataSet_MissingValue";
-            this.label_DataSet_MissingValue.Size = new System.Drawing.Size(21, 20);
-            this.label_DataSet_MissingValue.TabIndex = 17;
-            this.label_DataSet_MissingValue.Text = "...";
+            this.label_tipo.AutoSize = true;
+            this.label_tipo.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label_tipo.Font = new System.Drawing.Font("Century Gothic", 11F);
+            this.label_tipo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label_tipo.Location = new System.Drawing.Point(15, 132);
+            this.label_tipo.Name = "label_tipo";
+            this.label_tipo.Size = new System.Drawing.Size(21, 20);
+            this.label_tipo.TabIndex = 17;
+            this.label_tipo.Text = "...";
             // 
             // label9
             // 
@@ -262,7 +267,7 @@
             this.label9.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label9.Font = new System.Drawing.Font("Century Gothic", 11F);
             this.label9.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label9.Location = new System.Drawing.Point(15, 98);
+            this.label9.Location = new System.Drawing.Point(15, 111);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(41, 20);
             this.label9.TabIndex = 16;
@@ -271,7 +276,7 @@
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(104)))), ((int)(((byte)(11)))));
-            this.panel6.Location = new System.Drawing.Point(5, 98);
+            this.panel6.Location = new System.Drawing.Point(5, 111);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(10, 22);
             this.panel6.TabIndex = 15;
@@ -334,23 +339,23 @@
             // panel_DetallesNumericos
             // 
             this.panel_DetallesNumericos.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.panel_DetallesNumericos.Controls.Add(this.label17);
+            this.panel_DetallesNumericos.Controls.Add(this.label_desviacionEstandar);
             this.panel_DetallesNumericos.Controls.Add(this.label18);
             this.panel_DetallesNumericos.Controls.Add(this.panel15);
-            this.panel_DetallesNumericos.Controls.Add(this.label19);
+            this.panel_DetallesNumericos.Controls.Add(this.label_moda);
             this.panel_DetallesNumericos.Controls.Add(this.label20);
             this.panel_DetallesNumericos.Controls.Add(this.panel16);
             this.panel_DetallesNumericos.Controls.Add(this.panel17);
-            this.panel_DetallesNumericos.Controls.Add(this.label22);
+            this.panel_DetallesNumericos.Controls.Add(this.label_mediana);
             this.panel_DetallesNumericos.Controls.Add(this.label23);
             this.panel_DetallesNumericos.Controls.Add(this.panel18);
-            this.panel_DetallesNumericos.Controls.Add(this.label24);
+            this.panel_DetallesNumericos.Controls.Add(this.label_media);
             this.panel_DetallesNumericos.Controls.Add(this.label25);
             this.panel_DetallesNumericos.Controls.Add(this.panel19);
-            this.panel_DetallesNumericos.Controls.Add(this.label26);
+            this.panel_DetallesNumericos.Controls.Add(this.label_maximo);
             this.panel_DetallesNumericos.Controls.Add(this.label27);
             this.panel_DetallesNumericos.Controls.Add(this.panel20);
-            this.panel_DetallesNumericos.Controls.Add(this.label28);
+            this.panel_DetallesNumericos.Controls.Add(this.label_minimo);
             this.panel_DetallesNumericos.Controls.Add(this.label29);
             this.panel_DetallesNumericos.Controls.Add(this.panel21);
             this.panel_DetallesNumericos.Location = new System.Drawing.Point(10, 250);
@@ -358,17 +363,17 @@
             this.panel_DetallesNumericos.Size = new System.Drawing.Size(300, 360);
             this.panel_DetallesNumericos.TabIndex = 36;
             // 
-            // label17
+            // label_desviacionEstandar
             // 
-            this.label17.AutoSize = true;
-            this.label17.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label17.Font = new System.Drawing.Font("Century Gothic", 11F);
-            this.label17.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label17.Location = new System.Drawing.Point(15, 293);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(21, 20);
-            this.label17.TabIndex = 40;
-            this.label17.Text = "...";
+            this.label_desviacionEstandar.AutoSize = true;
+            this.label_desviacionEstandar.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label_desviacionEstandar.Font = new System.Drawing.Font("Century Gothic", 11F);
+            this.label_desviacionEstandar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label_desviacionEstandar.Location = new System.Drawing.Point(15, 293);
+            this.label_desviacionEstandar.Name = "label_desviacionEstandar";
+            this.label_desviacionEstandar.Size = new System.Drawing.Size(21, 20);
+            this.label_desviacionEstandar.TabIndex = 40;
+            this.label_desviacionEstandar.Text = "...";
             // 
             // label18
             // 
@@ -390,17 +395,17 @@
             this.panel15.Size = new System.Drawing.Size(10, 22);
             this.panel15.TabIndex = 38;
             // 
-            // label19
+            // label_moda
             // 
-            this.label19.AutoSize = true;
-            this.label19.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label19.Font = new System.Drawing.Font("Century Gothic", 11F);
-            this.label19.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label19.Location = new System.Drawing.Point(15, 243);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(21, 20);
-            this.label19.TabIndex = 37;
-            this.label19.Text = "...";
+            this.label_moda.AutoSize = true;
+            this.label_moda.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label_moda.Font = new System.Drawing.Font("Century Gothic", 11F);
+            this.label_moda.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label_moda.Location = new System.Drawing.Point(15, 243);
+            this.label_moda.Name = "label_moda";
+            this.label_moda.Size = new System.Drawing.Size(21, 20);
+            this.label_moda.TabIndex = 37;
+            this.label_moda.Text = "...";
             // 
             // label20
             // 
@@ -444,17 +449,17 @@
             this.label21.TabIndex = 4;
             this.label21.Text = "Detalles";
             // 
-            // label22
+            // label_mediana
             // 
-            this.label22.AutoSize = true;
-            this.label22.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label22.Font = new System.Drawing.Font("Century Gothic", 11F);
-            this.label22.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label22.Location = new System.Drawing.Point(15, 202);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(21, 20);
-            this.label22.TabIndex = 33;
-            this.label22.Text = "...";
+            this.label_mediana.AutoSize = true;
+            this.label_mediana.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label_mediana.Font = new System.Drawing.Font("Century Gothic", 11F);
+            this.label_mediana.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label_mediana.Location = new System.Drawing.Point(15, 202);
+            this.label_mediana.Name = "label_mediana";
+            this.label_mediana.Size = new System.Drawing.Size(21, 20);
+            this.label_mediana.TabIndex = 33;
+            this.label_mediana.Text = "...";
             // 
             // label23
             // 
@@ -476,17 +481,17 @@
             this.panel18.Size = new System.Drawing.Size(10, 22);
             this.panel18.TabIndex = 31;
             // 
-            // label24
+            // label_media
             // 
-            this.label24.AutoSize = true;
-            this.label24.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label24.Font = new System.Drawing.Font("Century Gothic", 11F);
-            this.label24.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label24.Location = new System.Drawing.Point(15, 152);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(21, 20);
-            this.label24.TabIndex = 30;
-            this.label24.Text = "...";
+            this.label_media.AutoSize = true;
+            this.label_media.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label_media.Font = new System.Drawing.Font("Century Gothic", 11F);
+            this.label_media.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label_media.Location = new System.Drawing.Point(15, 152);
+            this.label_media.Name = "label_media";
+            this.label_media.Size = new System.Drawing.Size(21, 20);
+            this.label_media.TabIndex = 30;
+            this.label_media.Text = "...";
             // 
             // label25
             // 
@@ -508,17 +513,17 @@
             this.panel19.Size = new System.Drawing.Size(10, 22);
             this.panel19.TabIndex = 28;
             // 
-            // label26
+            // label_maximo
             // 
-            this.label26.AutoSize = true;
-            this.label26.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label26.Font = new System.Drawing.Font("Century Gothic", 11F);
-            this.label26.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label26.Location = new System.Drawing.Point(15, 111);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(21, 20);
-            this.label26.TabIndex = 26;
-            this.label26.Text = "...";
+            this.label_maximo.AutoSize = true;
+            this.label_maximo.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label_maximo.Font = new System.Drawing.Font("Century Gothic", 11F);
+            this.label_maximo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label_maximo.Location = new System.Drawing.Point(15, 111);
+            this.label_maximo.Name = "label_maximo";
+            this.label_maximo.Size = new System.Drawing.Size(21, 20);
+            this.label_maximo.TabIndex = 26;
+            this.label_maximo.Text = "...";
             // 
             // label27
             // 
@@ -540,17 +545,17 @@
             this.panel20.Size = new System.Drawing.Size(10, 22);
             this.panel20.TabIndex = 24;
             // 
-            // label28
+            // label_minimo
             // 
-            this.label28.AutoSize = true;
-            this.label28.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label28.Font = new System.Drawing.Font("Century Gothic", 11F);
-            this.label28.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label28.Location = new System.Drawing.Point(15, 61);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(21, 20);
-            this.label28.TabIndex = 23;
-            this.label28.Text = "...";
+            this.label_minimo.AutoSize = true;
+            this.label_minimo.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label_minimo.Font = new System.Drawing.Font("Century Gothic", 11F);
+            this.label_minimo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label_minimo.Location = new System.Drawing.Point(15, 61);
+            this.label_minimo.Name = "label_minimo";
+            this.label_minimo.Size = new System.Drawing.Size(21, 20);
+            this.label_minimo.TabIndex = 23;
+            this.label_minimo.Text = "...";
             // 
             // label29
             // 
@@ -579,7 +584,7 @@
             this.panel_DetallesNominales.Controls.Add(this.panel10);
             this.panel_DetallesNominales.Controls.Add(this.label31);
             this.panel_DetallesNominales.Controls.Add(this.panel14);
-            this.panel_DetallesNominales.Location = new System.Drawing.Point(310, 250);
+            this.panel_DetallesNominales.Location = new System.Drawing.Point(10, 250);
             this.panel_DetallesNominales.Name = "panel_DetallesNominales";
             this.panel_DetallesNominales.Size = new System.Drawing.Size(300, 360);
             this.panel_DetallesNominales.TabIndex = 37;
@@ -631,11 +636,11 @@
             this.listView_posiblesValores.BackColor = System.Drawing.SystemColors.ControlDark;
             this.listView_posiblesValores.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listView_posiblesValores.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.numero,
             this.nombre,
             this.cantidad});
             this.listView_posiblesValores.Font = new System.Drawing.Font("Century Gothic", 11F);
             this.listView_posiblesValores.ForeColor = System.Drawing.Color.White;
+            this.listView_posiblesValores.FullRowSelect = true;
             this.listView_posiblesValores.Location = new System.Drawing.Point(5, 65);
             this.listView_posiblesValores.Name = "listView_posiblesValores";
             this.listView_posiblesValores.Size = new System.Drawing.Size(290, 290);
@@ -643,20 +648,47 @@
             this.listView_posiblesValores.UseCompatibleStateImageBehavior = false;
             this.listView_posiblesValores.View = System.Windows.Forms.View.Details;
             // 
-            // numero
-            // 
-            this.numero.Text = "No.";
-            this.numero.Width = 37;
-            // 
             // nombre
             // 
             this.nombre.Text = "Nombre";
-            this.nombre.Width = 170;
+            this.nombre.Width = 186;
             // 
             // cantidad
             // 
             this.cantidad.Text = "Cantidad";
             this.cantidad.Width = 81;
+            // 
+            // label_valoresErroneos
+            // 
+            this.label_valoresErroneos.AutoSize = true;
+            this.label_valoresErroneos.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label_valoresErroneos.Font = new System.Drawing.Font("Century Gothic", 11F);
+            this.label_valoresErroneos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label_valoresErroneos.Location = new System.Drawing.Point(15, 214);
+            this.label_valoresErroneos.Name = "label_valoresErroneos";
+            this.label_valoresErroneos.Size = new System.Drawing.Size(21, 20);
+            this.label_valoresErroneos.TabIndex = 30;
+            this.label_valoresErroneos.Text = "...";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label5.Font = new System.Drawing.Font("Century Gothic", 11F);
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label5.Location = new System.Drawing.Point(15, 193);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(189, 20);
+            this.label5.TabIndex = 29;
+            this.label5.Text = "No. de valores erroneos:";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(104)))), ((int)(((byte)(11)))));
+            this.panel2.Location = new System.Drawing.Point(5, 193);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(10, 22);
+            this.panel2.TabIndex = 28;
             // 
             // CustomControlPreProcesamiento
             // 
@@ -702,10 +734,10 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel_Atributo;
-        private System.Windows.Forms.Label label_DataSet_NumberOfAttributes;
+        private System.Windows.Forms.Label label_valoresFaltantes;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Label label_DataSet_MissingValue;
+        private System.Windows.Forms.Label label_tipo;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label4;
@@ -713,24 +745,24 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel_DetallesNumericos;
-        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label_desviacionEstandar;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Panel panel15;
-        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label_moda;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Panel panel16;
         private System.Windows.Forms.Panel panel17;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label_mediana;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Panel panel18;
-        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label_media;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Panel panel19;
-        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label_maximo;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Panel panel20;
-        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label_minimo;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Panel panel21;
         private System.Windows.Forms.ComboBox comboBox_Atributos;
@@ -740,8 +772,10 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Panel panel14;
         private System.Windows.Forms.ListView listView_posiblesValores;
-        private System.Windows.Forms.ColumnHeader numero;
         private System.Windows.Forms.ColumnHeader nombre;
         private System.Windows.Forms.ColumnHeader cantidad;
+        private System.Windows.Forms.Label label_valoresErroneos;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panel2;
     }
 }

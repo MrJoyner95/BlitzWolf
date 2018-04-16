@@ -240,6 +240,7 @@ namespace BlitzWolf
             this.panel_Seleccion.Top = this.button_PreProcesamiento.Top;
             // Mueve CustomControl al frente:
             this.customControlPreProcesamiento1.BringToFront();
+            this.customControlPreProcesamiento1.InicializarCustomControl();
         }
         
 

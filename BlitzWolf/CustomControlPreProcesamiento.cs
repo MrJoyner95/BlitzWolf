@@ -22,25 +22,18 @@ namespace BlitzWolf
             this.panel_AnalisisUnivariable.Location = new Point(0, 40);
             this.panel_AnalisisBivariable.Location = new Point(-1100, 40);
 
-
-            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Inicialización de controles:
-
-            // Inicializa comboBox:
-            foreach (Global.Attribute attribute in Global.DataSet_Attributes)
-            {
-                this.comboBox_Atributos.Items.Add(attribute.name);
-            }
-
+            // Mueve paneles de detalles (Univariable):
+            this.panel_DetallesNominales.Location = new Point(10, 250);
+            this.panel_DetallesNumericos.Location = new Point(10, 250);
 
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Inicialización de variables:
 
-
-
         }
 
-
-
-
+        private void CustomControlPreProcesamiento_Load(object sender, EventArgs e)
+        {
+            
+        }
 
 
 
@@ -145,6 +138,8 @@ namespace BlitzWolf
 
 
 
+        
+        // ******************************************************************************** UNIVARIABLE ********************************************************************************
 
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Eventos ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -178,14 +173,15 @@ namespace BlitzWolf
             MoverPaneles(1);
         }
 
-        private void CustomControlPreProcesamiento_Load(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void comboBox_Atributos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            // Ubica atributo en lista:
+            var nombreAtributo = comboBox_Atributos.SelectedItem.ToString();
+            Global.Attribute attribute = Global.DataSet_Attributes.Find(x => x.name == nombreAtributo);
+
+            CargarDetallesAtributo(ref attribute);
         }
 
 
@@ -194,21 +190,205 @@ namespace BlitzWolf
 
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Funciones ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-        private void CargarDetallesAtributo(Global.Attribute attribute)
+        public void InicializarCustomControl()
         {
-            if(attribute.type == "nominal")
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Inicialización de controles:
+            // Inicializa comboBox:
+            this.comboBox_Atributos.Items.Clear();
+
+            foreach (Global.Attribute attribute in Global.DataSet_Attributes)
             {
-                // 
-                // Contabiliza instancias del atributo en Data:
+                this.comboBox_Atributos.Items.Add(attribute.name);
+            }
+        }
+
+
+        public struct nominalValue
+        {
+            public string value;
+            public int count;
+        }
+
+        private void CargarDetallesAtributo(ref Global.Attribute attribute)
+        {
+            if (attribute.type == "nominal")
+            {
+                //++++++++++++++++++++++++++++++++++++++++++++++++ Nominales ++++++++++++++++++++++++++++++++++++++++++++++++
+                this.panel_DetallesNominales.BringToFront();
+
+                //++++++++++++++++++++++++++++++++++++++++ Variables locales:
+                // Cantidad atributos erroneos:
+                int totalWrongValues = 0;
+
+                // Cantidad atributos faltantes:
+                int totalMissingValues = 0;
+
+                // Ubica indice del atributo en lista de atributos:
+                int attributeIndex = Global.DataSet_Attributes.IndexOf(attribute);
+
+                // Define lista de atributos:
+                List<nominalValue> nominalValuesList = new List<nominalValue>();
+
+                //++++++++++++++++++++++++++++++++++++++++ Conteo de posibles valores:
+                // Ubica valores distintos en instancias del atributo en Data:
+                foreach (string[] instancia in Global.DataSet_Data)
+                {
+                    // Inicializa valor:
+                    nominalValue nomValue = new nominalValue();
+                    nomValue.value = instancia[attributeIndex];
+                    nomValue.count = 1;
+
+                    // Comprueba que el valor exista en lista de valores:
+                    if(nomValue.value == "" || nomValue.value == " ")
+                    {
+                        totalMissingValues++;
+                    }
+                    else if(Global.DataSet_Attributes[attributeIndex].regularExpression.Match(nomValue.value).Success)
+                    {
+                        // Encuentra valor en lista y su indice:
+                        nominalValue nominalValue = nominalValuesList.Find(x => x.value == nomValue.value);
+
+                        if(nominalValue.count >= 1)
+                        {
+                            // El valor ya existe en la lista, asi que se actualiza:
+                            int nominalValueIndex = nominalValuesList.IndexOf(nominalValue);
+
+                            // Obtiene numero contado del elemento original:
+                            nomValue.count = nominalValue.count + 1;
+
+                            // Reemplaza valor original:
+                            nominalValuesList.Insert(nominalValueIndex, nomValue);
+                            nominalValuesList.RemoveAt(nominalValueIndex + 1);
+                        }
+                        else
+                        {
+                            nominalValuesList.Add(nomValue);
+                        }                                               
+                    }                    
+                    else
+                    {
+                        totalWrongValues++;
+                    }
+                }
+
+                
+                Console.WriteLine(("Valores faltantes: " + totalMissingValues));
+                Console.WriteLine(("Valores erroneos: " + totalWrongValues));
+
+
+                
+
+
+                //++++++++++++++++++++++++++++++++++++++++ Muestra valores:
+                this.label_tipo.Text = attribute.type;
+                this.label_valoresFaltantes.Text = totalMissingValues.ToString();
+                this.label_valoresErroneos.Text = totalWrongValues.ToString();
+
+                this.listView_posiblesValores.Items.Clear();
+                foreach (nominalValue nom in nominalValuesList)
+                {
+                    Console.WriteLine("valor: " + nom.value + ", total:" + nom.count);
+
+                    // Crea y agrega objeto de listView:
+                    ListViewItem listViewItem = new ListViewItem(new string[] { nom.value, nom.count.ToString() });
+                    this.listView_posiblesValores.Items.Add(listViewItem);
+                }
+
+            }
+            else if (attribute.type == "numeric")
+            {
+                //++++++++++++++++++++++++++++++++++++++++++++++++ Numericos ++++++++++++++++++++++++++++++++++++++++++++++++
+                this.panel_DetallesNumericos.BringToFront();
+
+                //++++++++++++++++++++++++++++++++++++++++ Variables locales:
+                // Cantidad atributos erroneos:
+                int totalWrongValues = 0;
+
+                // Ubica indice del atributo en lista de atributos:
+                int attributeIndex = Global.DataSet_Attributes.IndexOf(attribute);
+
+                // Crea lista con valores del atributo en las intancias:
+                List<int> attributeValues = new List<int>();
+
                 foreach(string[] instancia in Global.DataSet_Data)
                 {
-
+                    try
+                    {
+                        if (Global.DataSet_Attributes[attributeIndex].regularExpression.Match(instancia[attributeIndex]).Success)
+                        {
+                            attributeValues.Add(int.Parse(instancia[attributeIndex]));
+                        }
+                        else
+                        {
+                            totalWrongValues++;
+                        }
+                    }
+                    catch
+                    {
+                        totalWrongValues++;
+                    }
                 }
-            }
-            else if(attribute.type == "numeric")
-            {
 
-            }            
+
+                foreach(int valor in attributeValues)
+                {
+                    Console.Write(valor + ",");
+                }
+                Console.WriteLine();
+
+
+                int totalMissingValues = Global.DataSet_Data.Count() - attributeValues.Count() - totalWrongValues;
+                Console.WriteLine(("Valores faltantes: " + totalMissingValues));
+                Console.WriteLine(("Valores erroneos: " + totalWrongValues));
+
+                //++++++++++++++++++++++++++++++++++++++++ Minimo:
+                int minimo = attributeValues.Min();
+                Console.WriteLine(("Minimo: " + minimo));
+
+                //++++++++++++++++++++++++++++++++++++++++ Maximo:
+                int maximo = attributeValues.Max();
+                Console.WriteLine(("Maximo: " + maximo));
+
+                //++++++++++++++++++++++++++++++++++++++++ Media:
+                double media = attributeValues.Average();
+                Console.WriteLine(("Media: " + media));
+
+                //++++++++++++++++++++++++++++++++++++++++ Mediana:
+                double mediana;
+                int totalValues = attributeValues.Count();
+                int halfIndex = attributeValues.Count() / 2;
+                var sortedNumbers = attributeValues.OrderBy(n => n);
+                
+                if ((totalValues % 2) == 0)
+                {
+                    mediana = ((sortedNumbers.ElementAt(halfIndex) + sortedNumbers.ElementAt((halfIndex - 1))) / 2);
+                }
+                else
+                {
+                    mediana = sortedNumbers.ElementAt(halfIndex);
+                }
+                Console.WriteLine(("Mediana: " + mediana));
+
+                //++++++++++++++++++++++++++++++++++++++++ Moda:
+                var moda = attributeValues.GroupBy(n => n).OrderByDescending(g => g.Count()).Select(g => g.Key).FirstOrDefault();
+                Console.WriteLine(("Moda: " + moda));
+
+                //++++++++++++++++++++++++++++++++++++++++ Desviacion estandar:
+                var desviacionEstandar = Math.Sqrt(attributeValues.Average(v => Math.Pow(v - media, 2)));
+                Console.WriteLine(("Desviacion estandar: " + desviacionEstandar));
+
+
+                //++++++++++++++++++++++++++++++++++++++++ Muestra valores:
+                this.label_tipo.Text = attribute.type;
+                this.label_valoresFaltantes.Text = totalMissingValues.ToString();
+                this.label_valoresErroneos.Text = totalWrongValues.ToString();
+                this.label_minimo.Text = minimo.ToString();
+                this.label_maximo.Text = maximo.ToString();
+                this.label_media.Text = media.ToString();
+                this.label_mediana.Text = mediana.ToString();
+                this.label_moda.Text = moda.ToString();
+                this.label_desviacionEstandar.Text = desviacionEstandar.ToString();
+            }
         }
 
 
