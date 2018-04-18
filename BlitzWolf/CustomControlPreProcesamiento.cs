@@ -26,6 +26,12 @@ namespace BlitzWolf
             this.panel_DetallesNominales.Location = new Point(10, 250);
             this.panel_DetallesNumericos.Location = new Point(10, 250);
 
+            // Mueve charts (univariable):
+            this.chart_boxPlot.Location = new Point(320, 0);
+            this.chart_boxPlot.Size = new Size(710, 610);
+            this.chart_nominalBarras.Location = new Point(320, 0);
+            this.chart_nominalBarras.Size = new Size(710, 610);
+
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Inicialización de variables:
 
         }
@@ -294,6 +300,9 @@ namespace BlitzWolf
                     this.listView_posiblesValores.Items.Add(listViewItem);
                 }
 
+                // Muestra valores en grafica de barras:
+                CargarGraficaDeBarras(nominalValuesList);
+
             }
             else if (attribute.type == "numeric")
             {
@@ -388,10 +397,157 @@ namespace BlitzWolf
                 this.label_mediana.Text = mediana.ToString();
                 this.label_moda.Text = moda.ToString();
                 this.label_desviacionEstandar.Text = desviacionEstandar.ToString();
+
+                //++++++++++++++++++++++++++++++++++++++++ Muestra Box Plot:
+                CargarBoxPlot(attributeValues, minimo, maximo, mediana);
             }
         }
 
 
+        private void CargarBoxPlot(List<int> listaValores, int min, int max, double med)
+        {
+            // Limpia chart:
+            this.chart_boxPlot.Series["attributeValues"].Points.Clear();
+
+            // Mueve chart al frente:
+            this.chart_boxPlot.BringToFront();
+
+            // Obtiene cuartiles de la lista de valores:
+            List<double> cuartiles = Quartiles(listaValores);
+
+            Console.WriteLine("mediana = " + med);
+            Console.WriteLine("Q2 = " + cuartiles[1]);
+
+            // Agrega 5 valores principales al Box Plot:
+            chart_boxPlot.Series["attributeValues"].Points.AddXY(0, min, max, cuartiles[0], cuartiles[2], med);
+
+            // Agrega el resto de los valores como puntos:
+            /*
+            foreach (int valor in listaValores)
+            {
+                if(valor != min && valor != max && valor != cuartiles[0] && valor != cuartiles[2] && valor != med)
+                {
+                    chart_boxPlot.Series["attributeValues"].Points.AddY(valor);
+                }
+            }
+            */
+
+        }
+
+
+        private List<double> Quartiles(List<int> afVal)
+        {
+            int iSize = afVal.Count;
+            int iMid = iSize / 2; //this is the mid from a zero based index, eg mid of 7 = 3;
+
+            double fQ1 = 0;
+            double fQ2 = 0;
+            double fQ3 = 0;
+
+            if (iSize % 2 == 0)
+            {
+                //================ EVEN NUMBER OF POINTS: =====================
+                //even between low and high point
+                fQ2 = (afVal[iMid - 1] + afVal[iMid]) / 2;
+
+                int iMidMid = iMid / 2;
+
+                //easy split 
+                if (iMid % 2 == 0)
+                {
+                    fQ1 = (afVal[iMidMid - 1] + afVal[iMidMid]) / 2;
+                    fQ3 = (afVal[iMid + iMidMid - 1] + afVal[iMid + iMidMid]) / 2;
+                }
+                else
+                {
+                    fQ1 = afVal[iMidMid];
+                    fQ3 = afVal[iMidMid + iMid];
+                }
+            }
+            else if (iSize == 1)
+            {
+                //================= special case, sorry ================
+                fQ1 = afVal[0];
+                fQ2 = afVal[0];
+                fQ3 = afVal[0];
+            }
+            else
+            {
+                //odd number so the median is just the midpoint in the array.
+                fQ2 = afVal[iMid];
+
+                if ((iSize - 1) % 4 == 0)
+                {
+                    //======================(4n-1) POINTS =========================
+                    int n = (iSize - 1) / 4;
+                    fQ1 = (afVal[n - 1] * .25) + (afVal[n] * .75);
+                    fQ3 = (afVal[3 * n] * .75) + (afVal[3 * n + 1] * .25);
+                }
+                else if ((iSize - 3) % 4 == 0)
+                {
+                    //======================(4n-3) POINTS =========================
+                    int n = (iSize - 3) / 4;
+
+                    fQ1 = (afVal[n] * .75) + (afVal[n + 1] * .25);
+                    fQ3 = (afVal[3 * n + 1] * .25) + (afVal[3 * n + 2] * .75);
+                }
+            }
+
+
+            // Regresa lista:
+            List<double> listaCuartiles = new List<double>();
+            listaCuartiles.Add(fQ1);
+            listaCuartiles.Add(fQ2);
+            listaCuartiles.Add(fQ3);
+
+            return listaCuartiles;
+        }
+
+
+        private void CargarGraficaDeBarras(List<nominalValue> valuesList)
+        {
+            // Limpia chart:
+            this.chart_nominalBarras.Series.Clear();
+
+            // Mueve chart al frente:
+            this.chart_nominalBarras.BringToFront();
+
+            /*
+            // Crea una serie por cada valor nominal:
+            for(int x = 0; x < valuesList.Count; x++)
+            {
+                this.chart_nominalBarras.Series.Add("s" + x.ToString());
+                this.chart_nominalBarras.Legends.Add("l" + x.ToString());
+            }
+
+            // Muestra valores en series:
+            for (int x = 0; x < valuesList.Count; x++)
+            {
+                this.chart_nominalBarras.Series["s" + x.ToString()].Points.AddXY(x, valuesList[x].count);
+                this.chart_nominalBarras.Legends["l" + x.ToString()].Title = valuesList[x].value;
+            }
+            */
+
+            // Crea una serie por cada valor nominal:
+            foreach(nominalValue value in valuesList)
+            {
+                this.chart_nominalBarras.Series.Add(value.value);
+                this.chart_nominalBarras.Legends.Add(value.value);
+                // Modifica legend:
+                this.chart_nominalBarras.Legends[value.value].BackColor = Color.FromName("ControlDarkDark");
+                this.chart_nominalBarras.Legends[value.value].Font = new Font("Century Gothic", 10);
+                this.chart_nominalBarras.Legends[value.value].ForeColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
+            }
+
+            // Muestra valores en series:
+            int x = 0;
+            foreach (nominalValue value in valuesList)
+            {
+                this.chart_nominalBarras.Series[value.value].Points.AddXY(x, value.count);
+                this.chart_nominalBarras.Legends[value.value].Title = value.value;
+                x++;
+            }
+        }
 
 
     }
