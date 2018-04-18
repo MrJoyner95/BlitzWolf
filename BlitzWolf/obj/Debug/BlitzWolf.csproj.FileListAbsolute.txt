@@ -13,6 +13,7 @@ C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\De
 C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.csprojResolveAssemblyReference.cache
 C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.PopUpAtributo.resources
 C:\Users\Joyner\Documents\Visual Studio 2017\Projects\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.PopUpConjuntoDeDatos.resources
+<<<<<<< HEAD
 C:\Users\inzod\Documents\GitHub\BlitzWolf\BlitzWolf\bin\Debug\BlitzWolf.exe.config
 C:\Users\inzod\Documents\GitHub\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.exe
 C:\Users\inzod\Documents\GitHub\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.pdb
@@ -30,3 +31,5 @@ C:\Users\inzod\Documents\GitHub\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.csproj.G
 C:\Users\inzod\Desktop\respaldos\2.BlitzWolf\BlitzWolf\bin\Debug\BlitzWolf.exe.config
 C:\Users\inzod\Desktop\respaldos\2.BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.exe
 C:\Users\inzod\Desktop\respaldos\2.BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.pdb
+=======
+>>>>>>> d1be385c76875f6f43aadff7a26311d0443db974

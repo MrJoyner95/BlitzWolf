@@ -26,6 +26,12 @@ namespace BlitzWolf
             this.panel_DetallesNominales.Location = new Point(10, 250);
             this.panel_DetallesNumericos.Location = new Point(10, 250);
 
+            // Mueve charts (univariable):
+            this.chart_boxPlot.Location = new Point(320, 0);
+            this.chart_boxPlot.Size = new Size(710, 610);
+            this.chart_nominalBarras.Location = new Point(320, 0);
+            this.chart_nominalBarras.Size = new Size(710, 610);
+
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Inicialización de variables:
 
         }
@@ -294,6 +300,9 @@ namespace BlitzWolf
                     this.listView_posiblesValores.Items.Add(listViewItem);
                 }
 
+                // Muestra valores en grafica de barras:
+                CargarGraficaDeBarras(nominalValuesList);
+
             }
             else if (attribute.type == "numeric")
             {
@@ -388,287 +397,158 @@ namespace BlitzWolf
                 this.label_mediana.Text = mediana.ToString();
                 this.label_moda.Text = moda.ToString();
                 this.label_desviacionEstandar.Text = desviacionEstandar.ToString();
+
+                //++++++++++++++++++++++++++++++++++++++++ Muestra Box Plot:
+                CargarBoxPlot(attributeValues, minimo, maximo, mediana);
             }
         }
 
-        private void panel_AnalisisBivariable_Paint(object sender, PaintEventArgs e)
-        {
-            cargaAtributos();
-            this.textBox1.Clear();
-            this.textBox2.Clear();
-            this.button_AgregarInstancia.Enabled = false;
-        }
 
-        public void cargaAtributos()
+        private void CargarBoxPlot(List<int> listaValores, int min, int max, double med)
         {
-            this.listBox1.Items.Clear();
-            if (Global.DataSet_Attributes.Count > 0 && Global.DataSet_Data.Count > 0)
+            // Limpia chart:
+            this.chart_boxPlot.Series["attributeValues"].Points.Clear();
+
+            // Mueve chart al frente:
+            this.chart_boxPlot.BringToFront();
+
+            // Obtiene cuartiles de la lista de valores:
+            List<double> cuartiles = Quartiles(listaValores);
+
+            Console.WriteLine("mediana = " + med);
+            Console.WriteLine("Q2 = " + cuartiles[1]);
+
+            // Agrega 5 valores principales al Box Plot:
+            chart_boxPlot.Series["attributeValues"].Points.AddXY(0, min, max, cuartiles[0], cuartiles[2], med);
+
+            // Agrega el resto de los valores como puntos:
+            /*
+            foreach (int valor in listaValores)
             {
-                foreach (Global.Attribute atributo in Global.DataSet_Attributes)
+                if(valor != min && valor != max && valor != cuartiles[0] && valor != cuartiles[2] && valor != med)
                 {
-                    this.listBox1.Items.Add(atributo.name);
+                    chart_boxPlot.Series["attributeValues"].Points.AddY(valor);
                 }
             }
+            */
+
         }
 
-        int numberOfItem;
-        bool InstanciasCargadasEnGrid = false;
 
-        private void listBox1Cargar()
-        { 
-            try
+        private List<double> Quartiles(List<int> afVal)
+        {
+            int iSize = afVal.Count;
+            int iMid = iSize / 2; //this is the mid from a zero based index, eg mid of 7 = 3;
+
+            double fQ1 = 0;
+            double fQ2 = 0;
+            double fQ3 = 0;
+
+            if (iSize % 2 == 0)
             {
-                string curItem = listBox1.SelectedItem.ToString();
-                numberOfItem = listBox1.FindString(curItem);
-                foreach (Global.Attribute atributo in Global.DataSet_Attributes)
+                //================ EVEN NUMBER OF POINTS: =====================
+                //even between low and high point
+                fQ2 = (afVal[iMid - 1] + afVal[iMid]) / 2;
+
+                int iMidMid = iMid / 2;
+
+                //easy split 
+                if (iMid % 2 == 0)
                 {
-                    if (curItem == atributo.name)
-                    {
-                        this.label1.Text = atributo.name;
-                        this.label6.Text = atributo.type;
-                        if (atributo.type != "numeric")
-                        {
-                            dataGridView_Instancias.Rows.Clear();
-                            this.dataGridView_Instancias.Visible = true;
-                            this.GetInstanciasByAtributo(numberOfItem);
-                        }
-                        else
-                        {
-                            dataGridView_Instancias.Rows.Clear();
-                            this.dataGridView_Instancias.Visible = true;
-                            this.GetInstanciasByAtributo(numberOfItem);
-                        }
-                    }
+                    fQ1 = (afVal[iMidMid - 1] + afVal[iMidMid]) / 2;
+                    fQ3 = (afVal[iMid + iMidMid - 1] + afVal[iMid + iMidMid]) / 2;
+                }
+                else
+                {
+                    fQ1 = afVal[iMidMid];
+                    fQ3 = afVal[iMidMid + iMid];
                 }
             }
-            catch { }
-        }
-
-        private void GetInstanciasByAtributo(int numberColum)
-        {
-            InstanciasCargadasEnGrid = false;
-            List<string> myTem = new List<string>();
-
-            if (Global.DataSet_Attributes.Count > 0 && Global.DataSet_Data.Count > 0)
+            else if (iSize == 1)
             {
-
-                dataGridView_Instancias.ColumnCount = 2;
-                dataGridView_Instancias.Columns[0].Name = "Etiqueta";
-
-                foreach (string[] instancia in Global.DataSet_Data)
-                {
-                    myTem.Add(instancia[numberColum]);
-                }
-
-                foreach (var grp in myTem.GroupBy(i => i))
-                {
-                    Console.WriteLine("{0} : {1}", grp.Key, grp.Count());
-
-                    dataGridView_Instancias.Rows.Add(grp.Key, grp.Count());
-                }
+                //================= special case, sorry ================
+                fQ1 = afVal[0];
+                fQ2 = afVal[0];
+                fQ3 = afVal[0];
             }
             else
             {
-                MessageBox.Show("El conjunto de datos no cuenta con los valores necesarios para ser mostrado en el Grid.", "Error: No puede mostrarse el conjunto de datos.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                InstanciasCargadasEnGrid = false;
-            }
-        }
+                //odd number so the median is just the midpoint in the array.
+                fQ2 = afVal[iMid];
 
-
-        string type_1, type_2;
-        int tipo_1, tipo_2;
-        private void listBox1_MouseDown(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                string curItem = listBox1.SelectedItem.ToString();
-                numberOfItem = listBox1.FindString(curItem);
-                listBox1.DoDragDrop(listBox1.SelectedItem.ToString(), DragDropEffects.Copy);
-                this.listBox1Cargar();
-            }
-            catch { }
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.listBox1Cargar();
-        }
-
-        private void Comparar(string TXT_1, string TXT_2)
-        {
-            this.dataGridView1.Rows.Clear();
-            this.dataGridView1.Columns.Clear();
-            this.ClearALL();
-
-            foreach (Global.Attribute atributo in Global.DataSet_Attributes)
-            {
-                if (TXT_1 == atributo.name)
+                if ((iSize - 1) % 4 == 0)
                 {
-                    type_1 = atributo.type;
+                    //======================(4n-1) POINTS =========================
+                    int n = (iSize - 1) / 4;
+                    fQ1 = (afVal[n - 1] * .25) + (afVal[n] * .75);
+                    fQ3 = (afVal[3 * n] * .75) + (afVal[3 * n + 1] * .25);
                 }
-                if (TXT_2 == atributo.name)
+                else if ((iSize - 3) % 4 == 0)
                 {
-                    type_2 = atributo.type;
+                    //======================(4n-3) POINTS =========================
+                    int n = (iSize - 3) / 4;
+
+                    fQ1 = (afVal[n] * .75) + (afVal[n + 1] * .25);
+                    fQ3 = (afVal[3 * n + 1] * .25) + (afVal[3 * n + 2] * .75);
                 }
             }
 
-            if (type_1 == type_2 && TXT_1 != TXT_2)
-            {
-                CrearGRID(textBox1.Text, textBox2.Text);
-            }
-            else
-            {
-                MessageBox.Show("Los tipos de atributos no coinciden o es el mismo atributo", "¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.ClearALL();
-            }
+
+            // Regresa lista:
+            List<double> listaCuartiles = new List<double>();
+            listaCuartiles.Add(fQ1);
+            listaCuartiles.Add(fQ2);
+            listaCuartiles.Add(fQ3);
+
+            return listaCuartiles;
         }
 
-        private void textBox1_DragEnter(object sender, DragEventArgs e)
+
+        private void CargarGraficaDeBarras(List<nominalValue> valuesList)
         {
-            try
+            // Limpia chart:
+            this.chart_nominalBarras.Series.Clear();
+
+            // Mueve chart al frente:
+            this.chart_nominalBarras.BringToFront();
+
+            /*
+            // Crea una serie por cada valor nominal:
+            for(int x = 0; x < valuesList.Count; x++)
             {
-                textBox1.Clear();
-                e.Effect = DragDropEffects.All;
-                textBox1.Text = e.Data.GetData(DataFormats.Text).ToString();
-                tipo_1 = numberOfItem;
-                
-            }
-            catch { }
-        }
-
-        private void textBox2_DragEnter(object sender, DragEventArgs e)
-        {
-            try
-            {
-                textBox2.Clear();
-                e.Effect = DragDropEffects.All;
-                textBox2.Text = e.Data.GetData(DataFormats.Text).ToString();
-                tipo_2 = numberOfItem;
-            }
-            catch { }
-        }
-
-
-        int x, y, xy;
-        double Sumvarianza_x, desviación_x, varianza_x, media_x;
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            if (textBox1.Text != "" && textBox2.Text != "")
-            {
-                this.button_AgregarInstancia.Enabled = true;
-            }
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            if (textBox1.Text != "" && textBox2.Text != "")
-            {
-                this.button_AgregarInstancia.Enabled = true;
-            }
-        }
-
-        double Sumvarianza_y, desviación_y, varianza_y, media_y;
-        double covarienza;
-        double perason;
-        int numElemento = 0;
-
-        private void CrearGRID(string atri_1, string atri_2)
-        {
-
-            dataGridView1.ColumnCount = 5;
-            dataGridView1.Columns[0].Name = atri_1 + "  (X)";
-            dataGridView1.Columns[1].Name = atri_2 + "  (Y)";
-            dataGridView1.Columns[2].Name = "(X^2)(F)";
-            dataGridView1.Columns[3].Name = "(Y^2)(F)";
-            dataGridView1.Columns[4].Name = "(X)(Y)(F)";
-
-            try
-            {
-
-                foreach (string[] instancia in Global.DataSet_Data)
-                {
-
-                    x = Int32.Parse(instancia[tipo_1]) * Int32.Parse(instancia[tipo_1]);
-                    y = Int32.Parse(instancia[tipo_2]) * Int32.Parse(instancia[tipo_2]);
-                    xy = Int32.Parse(instancia[tipo_1]) * Int32.Parse(instancia[tipo_2]);
-                    numElemento++;
-                    dataGridView1.Rows.Add(instancia[tipo_1], instancia[tipo_2], x, y, xy);
-                }
-            }
-            catch
-            {
-                this.ClearALL();
-                this.dataGridView1.Rows.Clear();
-                this.dataGridView1.Columns.Clear();
-                MessageBox.Show("Parece que algunos datos no respetan la expresión regular", "¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                
-            }
-        
-
-
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                media_x       += Convert.ToInt32(row.Cells[atri_1 + "  (X)"].Value);
-                Sumvarianza_x += Convert.ToInt32(row.Cells["(X^2)(F)"].Value);
-                media_y       += Convert.ToInt32(row.Cells[atri_2 + "  (Y)"].Value);
-                Sumvarianza_y += Convert.ToInt32(row.Cells["(Y^2)(F)"].Value);
-                covarienza    += Convert.ToInt32(row.Cells["(X)(Y)(F)"].Value);
+                this.chart_nominalBarras.Series.Add("s" + x.ToString());
+                this.chart_nominalBarras.Legends.Add("l" + x.ToString());
             }
 
-            media_x      = media_x / numElemento;
-            label19.Text = Convert.ToString(media_x);
-            varianza_x   = (Sumvarianza_x / numElemento) - (Math.Pow(media_x, 2));
-            label26.Text = Convert.ToString(varianza_x);
-            desviación_x = Math.Sqrt(varianza_x);
-            label35.Text = Convert.ToString(desviación_x);
+            // Muestra valores en series:
+            for (int x = 0; x < valuesList.Count; x++)
+            {
+                this.chart_nominalBarras.Series["s" + x.ToString()].Points.AddXY(x, valuesList[x].count);
+                this.chart_nominalBarras.Legends["l" + x.ToString()].Title = valuesList[x].value;
+            }
+            */
 
-            media_y      = media_y / numElemento;
-            label30.Text = Convert.ToString(media_y);
-            varianza_y   = (Sumvarianza_y / numElemento) - (Math.Pow(media_y, 2));
-            label33.Text = Convert.ToString(varianza_y);
-            desviación_y = Math.Sqrt(varianza_y);
-            label37.Text = Convert.ToString(desviación_y);
+            // Crea una serie por cada valor nominal:
+            foreach(nominalValue value in valuesList)
+            {
+                this.chart_nominalBarras.Series.Add(value.value);
+                this.chart_nominalBarras.Legends.Add(value.value);
+                // Modifica legend:
+                this.chart_nominalBarras.Legends[value.value].BackColor = Color.FromName("ControlDarkDark");
+                this.chart_nominalBarras.Legends[value.value].Font = new Font("Century Gothic", 10);
+                this.chart_nominalBarras.Legends[value.value].ForeColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
+            }
 
-            covarienza   = (covarienza / numElemento) - (media_x) * (media_y);
-            label39.Text = Convert.ToString(covarienza);
-
-            perason      = (covarienza) / ((desviación_x) * (desviación_y));
-            label41.Text = Convert.ToString(perason);
+            // Muestra valores en series:
+            int x = 0;
+            foreach (nominalValue value in valuesList)
+            {
+                this.chart_nominalBarras.Series[value.value].Points.AddXY(x, value.count);
+                this.chart_nominalBarras.Legends[value.value].Title = value.value;
+                x++;
+            }
         }
 
-        private void button_AgregarInstancia_Click_1(object sender, EventArgs e)
-        {
-            
-                this.Comparar(textBox1.Text, textBox2.Text);
-        }
 
-        private void ClearALL()
-        {
-            Sumvarianza_x = 0;
-            desviación_x = 0;
-            varianza_x = 0;
-            media_x = 0;
-
-            Sumvarianza_y = 0;
-            desviación_y = 0;
-            varianza_y = 0;
-            media_y = 0;
-
-            covarienza = 0;
-            perason = 0;
-
-            numElemento = 0;
-
-            label19.Text = "...";
-            label26.Text = "...";
-            label35.Text = "...";
-            label30.Text = "...";
-            label33.Text = "...";
-            label37.Text = "...";
-            label39.Text = "...";
-            label41.Text = "...";
-
-        }
     }
 }
