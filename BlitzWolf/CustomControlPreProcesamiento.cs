@@ -391,8 +391,284 @@ namespace BlitzWolf
             }
         }
 
+        private void panel_AnalisisBivariable_Paint(object sender, PaintEventArgs e)
+        {
+            cargaAtributos();
+            this.textBox1.Clear();
+            this.textBox2.Clear();
+            this.button_AgregarInstancia.Enabled = false;
+        }
+
+        public void cargaAtributos()
+        {
+            this.listBox1.Items.Clear();
+            if (Global.DataSet_Attributes.Count > 0 && Global.DataSet_Data.Count > 0)
+            {
+                foreach (Global.Attribute atributo in Global.DataSet_Attributes)
+                {
+                    this.listBox1.Items.Add(atributo.name);
+                }
+            }
+        }
+
+        int numberOfItem;
+        bool InstanciasCargadasEnGrid = false;
+
+        private void listBox1Cargar()
+        { 
+            try
+            {
+                string curItem = listBox1.SelectedItem.ToString();
+                numberOfItem = listBox1.FindString(curItem);
+                foreach (Global.Attribute atributo in Global.DataSet_Attributes)
+                {
+                    if (curItem == atributo.name)
+                    {
+                        this.label1.Text = atributo.name;
+                        this.label6.Text = atributo.type;
+                        if (atributo.type != "numeric")
+                        {
+                            dataGridView_Instancias.Rows.Clear();
+                            this.dataGridView_Instancias.Visible = true;
+                            this.GetInstanciasByAtributo(numberOfItem);
+                        }
+                        else
+                        {
+                            dataGridView_Instancias.Rows.Clear();
+                            this.dataGridView_Instancias.Visible = true;
+                            this.GetInstanciasByAtributo(numberOfItem);
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private void GetInstanciasByAtributo(int numberColum)
+        {
+            InstanciasCargadasEnGrid = false;
+            List<string> myTem = new List<string>();
+
+            if (Global.DataSet_Attributes.Count > 0 && Global.DataSet_Data.Count > 0)
+            {
+
+                dataGridView_Instancias.ColumnCount = 2;
+                dataGridView_Instancias.Columns[0].Name = "Etiqueta";
+
+                foreach (string[] instancia in Global.DataSet_Data)
+                {
+                    myTem.Add(instancia[numberColum]);
+                }
+
+                foreach (var grp in myTem.GroupBy(i => i))
+                {
+                    Console.WriteLine("{0} : {1}", grp.Key, grp.Count());
+
+                    dataGridView_Instancias.Rows.Add(grp.Key, grp.Count());
+                }
+            }
+            else
+            {
+                MessageBox.Show("El conjunto de datos no cuenta con los valores necesarios para ser mostrado en el Grid.", "Error: No puede mostrarse el conjunto de datos.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                InstanciasCargadasEnGrid = false;
+            }
+        }
 
 
+        string type_1, type_2;
+        int tipo_1, tipo_2;
+        private void listBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                string curItem = listBox1.SelectedItem.ToString();
+                numberOfItem = listBox1.FindString(curItem);
+                listBox1.DoDragDrop(listBox1.SelectedItem.ToString(), DragDropEffects.Copy);
+                this.listBox1Cargar();
+            }
+            catch { }
+        }
 
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.listBox1Cargar();
+        }
+
+        private void Comparar(string TXT_1, string TXT_2)
+        {
+            this.dataGridView1.Rows.Clear();
+            this.dataGridView1.Columns.Clear();
+            this.ClearALL();
+
+            foreach (Global.Attribute atributo in Global.DataSet_Attributes)
+            {
+                if (TXT_1 == atributo.name)
+                {
+                    type_1 = atributo.type;
+                }
+                if (TXT_2 == atributo.name)
+                {
+                    type_2 = atributo.type;
+                }
+            }
+
+            if (type_1 == type_2 && TXT_1 != TXT_2)
+            {
+                CrearGRID(textBox1.Text, textBox2.Text);
+            }
+            else
+            {
+                MessageBox.Show("Los tipos de atributos no coinciden o es el mismo atributo", "¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.ClearALL();
+            }
+        }
+
+        private void textBox1_DragEnter(object sender, DragEventArgs e)
+        {
+            try
+            {
+                textBox1.Clear();
+                e.Effect = DragDropEffects.All;
+                textBox1.Text = e.Data.GetData(DataFormats.Text).ToString();
+                tipo_1 = numberOfItem;
+                
+            }
+            catch { }
+        }
+
+        private void textBox2_DragEnter(object sender, DragEventArgs e)
+        {
+            try
+            {
+                textBox2.Clear();
+                e.Effect = DragDropEffects.All;
+                textBox2.Text = e.Data.GetData(DataFormats.Text).ToString();
+                tipo_2 = numberOfItem;
+            }
+            catch { }
+        }
+
+
+        int x, y, xy;
+        double Sumvarianza_x, desviación_x, varianza_x, media_x;
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox1.Text != "" && textBox2.Text != "")
+            {
+                this.button_AgregarInstancia.Enabled = true;
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox1.Text != "" && textBox2.Text != "")
+            {
+                this.button_AgregarInstancia.Enabled = true;
+            }
+        }
+
+        double Sumvarianza_y, desviación_y, varianza_y, media_y;
+        double covarienza;
+        double perason;
+        int numElemento = 0;
+
+        private void CrearGRID(string atri_1, string atri_2)
+        {
+
+            dataGridView1.ColumnCount = 5;
+            dataGridView1.Columns[0].Name = atri_1 + "  (X)";
+            dataGridView1.Columns[1].Name = atri_2 + "  (Y)";
+            dataGridView1.Columns[2].Name = "(X^2)(F)";
+            dataGridView1.Columns[3].Name = "(Y^2)(F)";
+            dataGridView1.Columns[4].Name = "(X)(Y)(F)";
+
+            try
+            {
+
+                foreach (string[] instancia in Global.DataSet_Data)
+                {
+
+                    x = Int32.Parse(instancia[tipo_1]) * Int32.Parse(instancia[tipo_1]);
+                    y = Int32.Parse(instancia[tipo_2]) * Int32.Parse(instancia[tipo_2]);
+                    xy = Int32.Parse(instancia[tipo_1]) * Int32.Parse(instancia[tipo_2]);
+                    numElemento++;
+                    dataGridView1.Rows.Add(instancia[tipo_1], instancia[tipo_2], x, y, xy);
+                }
+            }
+            catch
+            {
+                this.ClearALL();
+                this.dataGridView1.Rows.Clear();
+                this.dataGridView1.Columns.Clear();
+                MessageBox.Show("Parece que algunos datos no respetan la expresión regular", "¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                
+            }
+        
+
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                media_x       += Convert.ToInt32(row.Cells[atri_1 + "  (X)"].Value);
+                Sumvarianza_x += Convert.ToInt32(row.Cells["(X^2)(F)"].Value);
+                media_y       += Convert.ToInt32(row.Cells[atri_2 + "  (Y)"].Value);
+                Sumvarianza_y += Convert.ToInt32(row.Cells["(Y^2)(F)"].Value);
+                covarienza    += Convert.ToInt32(row.Cells["(X)(Y)(F)"].Value);
+            }
+
+            media_x      = media_x / numElemento;
+            label19.Text = Convert.ToString(media_x);
+            varianza_x   = (Sumvarianza_x / numElemento) - (Math.Pow(media_x, 2));
+            label26.Text = Convert.ToString(varianza_x);
+            desviación_x = Math.Sqrt(varianza_x);
+            label35.Text = Convert.ToString(desviación_x);
+
+            media_y      = media_y / numElemento;
+            label30.Text = Convert.ToString(media_y);
+            varianza_y   = (Sumvarianza_y / numElemento) - (Math.Pow(media_y, 2));
+            label33.Text = Convert.ToString(varianza_y);
+            desviación_y = Math.Sqrt(varianza_y);
+            label37.Text = Convert.ToString(desviación_y);
+
+            covarienza   = (covarienza / numElemento) - (media_x) * (media_y);
+            label39.Text = Convert.ToString(covarienza);
+
+            perason      = (covarienza) / ((desviación_x) * (desviación_y));
+            label41.Text = Convert.ToString(perason);
+        }
+
+        private void button_AgregarInstancia_Click_1(object sender, EventArgs e)
+        {
+            
+                this.Comparar(textBox1.Text, textBox2.Text);
+        }
+
+        private void ClearALL()
+        {
+            Sumvarianza_x = 0;
+            desviación_x = 0;
+            varianza_x = 0;
+            media_x = 0;
+
+            Sumvarianza_y = 0;
+            desviación_y = 0;
+            varianza_y = 0;
+            media_y = 0;
+
+            covarienza = 0;
+            perason = 0;
+
+            numElemento = 0;
+
+            label19.Text = "...";
+            label26.Text = "...";
+            label35.Text = "...";
+            label30.Text = "...";
+            label33.Text = "...";
+            label37.Text = "...";
+            label39.Text = "...";
+            label41.Text = "...";
+
+        }
     }
 }

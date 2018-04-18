@@ -1,0 +1,17 @@
+%% Monthly totals of international airline passengers (in thousands) for
+%% 1949-1960.
+
+@relation airline_passengers
+@attribute passenger_numbers numeric ^\d+$
+@attribute type nominal \b(tourist|first\sclass)\b
+@attribute Edad numeric ^\d+$
+@missingValue ?
+
+@data
+112,tourist,34
+118,first class,67
+132,first class,23
+132,tourist,34
+129,tourist,12
+140,first_class,12
+118,first class,23
