@@ -27,3 +27,6 @@ C:\Users\inzod\Documents\GitHub\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.PopUpAtr
 C:\Users\inzod\Documents\GitHub\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.PopUpConjuntoDeDatos.resources
 C:\Users\inzod\Documents\GitHub\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.Properties.Resources.resources
 C:\Users\inzod\Documents\GitHub\BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.csproj.GenerateResource.Cache
+C:\Users\inzod\Desktop\respaldos\2.BlitzWolf\BlitzWolf\bin\Debug\BlitzWolf.exe.config
+C:\Users\inzod\Desktop\respaldos\2.BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.exe
+C:\Users\inzod\Desktop\respaldos\2.BlitzWolf\BlitzWolf\obj\Debug\BlitzWolf.pdb
